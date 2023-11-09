@@ -1,0 +1,26 @@
+:host {
+  display: contents;
+}
+
+.delIcon:hover {
+  color: red;
+  cursor: pointer;
+}
+
+table,
+.pg {
+  /* width: 100%; */
+  background-color: #673ab7;
+}
+
+/* table > tr > th {
+  color: white;
+} */
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+::ng-deep .mat-mdc-paginator .mat-mdc-select-value {
+  color: white;
+}

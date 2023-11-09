@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kmakai.sleeptracker.angular", "kmakai.sleeptracker.angular\kmakai.sleeptracker.angular.csproj", "{D96B3B82-8452-4E15-B5AA-898C272EB1AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D96B3B82-8452-4E15-B5AA-898C272EB1AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D96B3B82-8452-4E15-B5AA-898C272EB1AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D96B3B82-8452-4E15-B5AA-898C272EB1AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D96B3B82-8452-4E15-B5AA-898C272EB1AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {754EC2DA-0F15-4286-A93A-70674A618DDB}
+	EndGlobalSection
+EndGlobal

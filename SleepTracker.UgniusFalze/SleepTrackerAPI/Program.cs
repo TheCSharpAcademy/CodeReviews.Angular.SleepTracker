@@ -2,6 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using SleepTracker.UgniusFalze.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options => options.AddPolicy(name: "SleepTrackerUI",
+    policy =>
+    {
+        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+    }));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SleepRecordContext>(optionsBuilder =>
@@ -20,6 +25,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("SleepTrackerUI");
 
 app.UseHttpsRedirection();
 

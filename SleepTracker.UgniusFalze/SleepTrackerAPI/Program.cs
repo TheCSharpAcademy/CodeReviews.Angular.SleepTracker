@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SleepTracker.UgniusFalze.Models;
+using SleepTracker.UgniusFalze.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options => options.AddPolicy(name: "SleepTrackerUI",
@@ -12,9 +13,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SleepRecordContext>(optionsBuilder =>
 {
     var serverVersion = new MySqlServerVersion(new Version(8, 0, 34));
-    optionsBuilder.UseMySql("server=localhost; database=SleepRecord; user=;password=", serverVersion);
+    optionsBuilder.UseMySql("server=localhost; database=SleepRecord; user=ugnius;password=testPassword123-", serverVersion);
 });
-
+builder.Services.AddScoped<ISleepRecordRepository, SleepRecordRepository>();
 builder.Services.AddControllers();
 
 var app = builder.Build();

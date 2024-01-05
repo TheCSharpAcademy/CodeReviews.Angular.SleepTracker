@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SleepTracker.UgniusFalze.Models;
+using SleepTracker.UgniusFalze.Repositories;
 
 namespace SleepTracker.UgniusFalze.Controllers
 {
@@ -13,25 +14,25 @@ namespace SleepTracker.UgniusFalze.Controllers
     [ApiController]
     public class SleerpRecordController : ControllerBase
     {
-        private readonly SleepRecordContext _context;
+        private readonly ISleepRecordRepository _sleepRecordRepository;
 
-        public SleerpRecordController(SleepRecordContext context)
+        public SleerpRecordController(ISleepRecordRepository repository)
         {
-            _context = context;
+            _sleepRecordRepository = repository;
         }
 
         // GET: api/SleerpRecord
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<SleepRecord>>> GetSleepRecords()
+        [HttpGet("{limit}/{page}")]
+        public async Task<ActionResult<IEnumerable<SleepRecord>>> GetSleepRecords(int limit, int page)
         {
-            return await _context.SleepRecords.ToListAsync();
+            return await _sleepRecordRepository.GetRecords(limit, page);
         }
 
         // GET: api/SleerpRecord/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SleepRecord>> GetSleepRecord(int id)
         {
-            var sleepRecord = await _context.SleepRecords.FindAsync(id);
+            var sleepRecord = await _sleepRecordRepository.GetSleepRecord(id);
 
             if (sleepRecord == null)
             {
@@ -50,12 +51,11 @@ namespace SleepTracker.UgniusFalze.Controllers
             {
                 return BadRequest();
             }
-
-            _context.Entry(sleepRecord).State = EntityState.Modified;
+            
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _sleepRecordRepository.UpdateSleepRecord(sleepRecord);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -77,8 +77,7 @@ namespace SleepTracker.UgniusFalze.Controllers
         [HttpPost]
         public async Task<ActionResult<SleepRecord>> PostSleepRecord(SleepRecord sleepRecord)
         {
-            _context.SleepRecords.Add(sleepRecord);
-            await _context.SaveChangesAsync();
+            await _sleepRecordRepository.AddSleepRecord(sleepRecord);
 
             return CreatedAtAction("GetSleepRecord", new { id = sleepRecord.SleepRecordId }, sleepRecord);
         }
@@ -87,21 +86,20 @@ namespace SleepTracker.UgniusFalze.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSleepRecord(int id)
         {
-            var sleepRecord = await _context.SleepRecords.FindAsync(id);
+            var sleepRecord = await _sleepRecordRepository.GetSleepRecord(id);
             if (sleepRecord == null)
             {
                 return NotFound();
             }
 
-            _context.SleepRecords.Remove(sleepRecord);
-            await _context.SaveChangesAsync();
+            await _sleepRecordRepository.DeleteSleepRecord(sleepRecord);
 
             return NoContent();
         }
 
         private bool SleepRecordExists(int id)
         {
-            return _context.SleepRecords.Any(e => e.SleepRecordId == id);
+            return _sleepRecordRepository.SleepRecordExists(id);
         }
     }
 }

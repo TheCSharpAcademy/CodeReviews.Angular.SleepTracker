@@ -1,18 +1,25 @@
 <div class="full-width">
   <div class="full-width-table mat-elevation-z8">
+    <mat-form-field>
+      <mat-label>Filter Date</mat-label>
+      <select #filterDate matNativeControl>
+        <option value="">-- Select Date --</option>
+        <option [value]="item" *ngFor="let item of dates">{{item | date}}</option>
+      </select>
+    </mat-form-field>
     <table mat-table matSort aria-label="Elements" [dataSource]="dataSource">
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+        <th mat-header-cell *matHeaderCellDef >Id</th>
         <td mat-cell *matCellDef="let row">{{row.sleepRecordId}}</td>
       </ng-container>
 
       <ng-container matColumnDef="hours">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Hours Slept</th>
+        <th mat-header-cell *matHeaderCellDef>Hours Slept</th>
         <td mat-cell *matCellDef="let row">{{row.hoursSlept}}</td>
       </ng-container>
 
       <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+        <th mat-header-cell *matHeaderCellDef>Date</th>
         <td mat-cell *matCellDef="let row">{{row.sleepRecordStart.toLocaleDateString('en-US')}}</td>
       </ng-container>
 

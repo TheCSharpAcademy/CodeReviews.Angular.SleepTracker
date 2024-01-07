@@ -3,6 +3,7 @@ using SleepTracker.UgniusFalze.Models;
 using SleepTracker.UgniusFalze.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddCors(options => options.AddPolicy(name: "SleepTrackerUI",
     policy =>
     {

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -17,8 +18,8 @@ namespace SleepTracker.UgniusFalze.Migrations
                 {
                     SleepRecordId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    RecordStart = table.Column<long>(type: "bigint", nullable: false),
-                    RecordEnd = table.Column<long>(type: "bigint", nullable: false)
+                    RecordStart = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    RecordEnd = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {

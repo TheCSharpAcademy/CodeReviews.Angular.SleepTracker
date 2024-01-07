@@ -5,9 +5,9 @@ namespace SleepTracker.UgniusFalze.Models;
 public class SleepRecord
 {
     public int SleepRecordId { get; set; }
-
-    public long RecordStart { get; set; }
-    public long RecordEnd { get; set; }
+    
+    public DateTime RecordStart { get; set; }
+    public DateTime RecordEnd { get; set; }
 
     public SleepRecordDTO ToDto()
     {

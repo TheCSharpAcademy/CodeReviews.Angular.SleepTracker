@@ -9,7 +9,7 @@ public class SleepRecordDTO
     public SleepRecordDTO(SleepRecord sleepRecord)
     {
         SleepRecordId = sleepRecord.SleepRecordId;
-        SleepRecordStart = DateTimeOffset.FromUnixTimeSeconds(sleepRecord.RecordStart).UtcDateTime;
-        HoursSlept = (DateTimeOffset.FromUnixTimeSeconds(sleepRecord.RecordEnd).UtcDateTime - SleepRecordStart).Hours;
+        SleepRecordStart = sleepRecord.RecordStart;
+        HoursSlept = (sleepRecord.RecordEnd - SleepRecordStart).Hours;
     }
 }

@@ -22,10 +22,10 @@ namespace SleepTracker.UgniusFalze.Controllers
         }
 
         // GET: api/SleerpRecord
-        [HttpGet("{limit}/{page}")]
-        public async Task<ActionResult<IEnumerable<SleepRecordDTO>>> GetSleepRecords(int limit, int page)
+        [HttpGet(template:"{limit}/{page}", Name = "SleepRecordDate")]
+        public async Task<ActionResult<IEnumerable<SleepRecordDTO>>> GetSleepRecords(int limit, int page, [FromQuery] string? date)
         {
-            return await _sleepRecordRepository.GetRecords(limit, page);
+            return await _sleepRecordRepository.GetRecords(date, limit, page);
         }
 
         // GET: api/SleerpRecord/5
@@ -97,10 +97,16 @@ namespace SleepTracker.UgniusFalze.Controllers
             return NoContent();
         }
 
-        [HttpGet("getCount")]
-        public async Task<ActionResult<long>> GetSleepRecordCount()
+        [HttpGet(template:"getCount", Name="FilteredSleepRecordDate")]
+        public async Task<ActionResult<long>> GetSleepRecordCount([FromQuery] string? date)
         {
-            return await _sleepRecordRepository.GetSleepRecordCount();
+            return await _sleepRecordRepository.GetSleepRecordCount(date);
+        }
+        
+        [HttpGet("getDates")]
+        public async Task<ActionResult<IEnumerable<DateTime>>> GetSleepRecordDates()
+        {
+            return await _sleepRecordRepository.GetDates();
         }
         
         private bool SleepRecordExists(int id)

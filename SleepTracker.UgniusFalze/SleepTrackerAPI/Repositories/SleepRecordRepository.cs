@@ -6,9 +6,21 @@ namespace SleepTracker.UgniusFalze.Repositories;
 
 public class SleepRecordRepository(SleepRecordContext context) : ISleepRecordRepository
 {
-    public async Task<ActionResult<IEnumerable<SleepRecordDTO>>> GetRecords(int limit = 10, int page = 0)
+    public async Task<ActionResult<IEnumerable<SleepRecordDTO>>> GetRecords(string? date, int limit = 10, int page = 0)
     {
-        var sleepRecords = await context.SleepRecords.Skip(limit * page).Take(limit).ToListAsync();
+
+        var sleepRecordQuery = (IQueryable<SleepRecord>)context.SleepRecords;
+        if (date != null)
+        {
+            var convertedDate = DateTime.Parse(date).Date;
+            sleepRecordQuery = sleepRecordQuery.Where(record => record.RecordStart.Date == convertedDate);
+        }
+
+        var sleepRecords = await sleepRecordQuery
+            .Skip(limit * page)
+            .Take(limit)
+            .OrderBy(record => record.SleepRecordId)
+            .ToListAsync();
         return sleepRecords.ConvertAll<SleepRecordDTO>(sleepRecord => sleepRecord.ToDto());
     }
 
@@ -39,9 +51,23 @@ public class SleepRecordRepository(SleepRecordContext context) : ISleepRecordRep
         await SaveChanges();
     }
 
-    public async Task<long> GetSleepRecordCount()
+    public async Task<long> GetSleepRecordCount(string? date)
     {
-        return await context.SleepRecords.CountAsync();
+        IQueryable<SleepRecord> query = context.SleepRecords;
+        if (date != null)
+        {
+            var convertedDate = DateTime.Parse(date).Date;
+            query = query.Where(record => record.RecordStart.Date == convertedDate);
+        }
+        return await query.CountAsync();
+    }
+
+    public async Task<ActionResult<IEnumerable<DateTime>>> GetDates()
+    {
+        return await context.SleepRecords
+            .Select(record => record.RecordStart.Date)
+            .Distinct()
+            .ToListAsync();
     }
 
     private async Task SaveChanges()

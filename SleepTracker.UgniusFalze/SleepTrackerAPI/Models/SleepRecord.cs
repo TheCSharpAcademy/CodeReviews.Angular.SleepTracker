@@ -6,6 +6,11 @@ public class SleepRecord
 {
     public int SleepRecordId { get; set; }
 
-    public int RecordStart { get; set; }
-    public int RecordEnd { get; set; }
+    public long RecordStart { get; set; }
+    public long RecordEnd { get; set; }
+
+    public SleepRecordDTO ToDto()
+    {
+        return new SleepRecordDTO(this);
+    }
 }

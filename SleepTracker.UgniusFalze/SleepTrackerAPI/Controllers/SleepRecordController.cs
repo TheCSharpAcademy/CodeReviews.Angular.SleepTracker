@@ -12,18 +12,18 @@ namespace SleepTracker.UgniusFalze.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SleerpRecordController : ControllerBase
+    public class SleepRecordController : ControllerBase
     {
         private readonly ISleepRecordRepository _sleepRecordRepository;
 
-        public SleerpRecordController(ISleepRecordRepository repository)
+        public SleepRecordController(ISleepRecordRepository repository)
         {
             _sleepRecordRepository = repository;
         }
 
         // GET: api/SleerpRecord
         [HttpGet("{limit}/{page}")]
-        public async Task<ActionResult<IEnumerable<SleepRecord>>> GetSleepRecords(int limit, int page)
+        public async Task<ActionResult<IEnumerable<SleepRecordDTO>>> GetSleepRecords(int limit, int page)
         {
             return await _sleepRecordRepository.GetRecords(limit, page);
         }
@@ -97,6 +97,12 @@ namespace SleepTracker.UgniusFalze.Controllers
             return NoContent();
         }
 
+        [HttpGet("getCount")]
+        public async Task<ActionResult<long>> GetSleepRecordCount()
+        {
+            return await _sleepRecordRepository.GetSleepRecordCount();
+        }
+        
         private bool SleepRecordExists(int id)
         {
             return _sleepRecordRepository.SleepRecordExists(id);

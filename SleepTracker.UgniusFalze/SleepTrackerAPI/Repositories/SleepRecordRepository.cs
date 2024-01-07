@@ -6,9 +6,10 @@ namespace SleepTracker.UgniusFalze.Repositories;
 
 public class SleepRecordRepository(SleepRecordContext context) : ISleepRecordRepository
 {
-    public async Task<ActionResult<IEnumerable<SleepRecord>>> GetRecords(int limit = 10, int page = 0)
+    public async Task<ActionResult<IEnumerable<SleepRecordDTO>>> GetRecords(int limit = 10, int page = 0)
     {
-        return await context.SleepRecords.Skip(limit * page).Take(limit).ToListAsync();
+        var sleepRecords = await context.SleepRecords.Skip(limit * page).Take(limit).ToListAsync();
+        return sleepRecords.ConvertAll<SleepRecordDTO>(sleepRecord => sleepRecord.ToDto());
     }
 
     public async Task AddSleepRecord(SleepRecord record)
@@ -37,7 +38,12 @@ public class SleepRecordRepository(SleepRecordContext context) : ISleepRecordRep
         context.Entry(record).State = EntityState.Modified;
         await SaveChanges();
     }
-    
+
+    public async Task<long> GetSleepRecordCount()
+    {
+        return await context.SleepRecords.CountAsync();
+    }
+
     private async Task SaveChanges()
     {
         await context.SaveChangesAsync();

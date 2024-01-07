@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SleepTracker.UgniusFalze.Models;
 
 #nullable disable
@@ -10,7 +11,7 @@ using SleepTracker.UgniusFalze.Models;
 namespace SleepTracker.UgniusFalze.Migrations
 {
     [DbContext(typeof(SleepRecordContext))]
-    [Migration("20240104195941_Initial")]
+    [Migration("20240107143202_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -19,23 +20,23 @@ namespace SleepTracker.UgniusFalze.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.0")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("SleepTrackerAPI.Models.SleepRecord", b =>
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("SleepTracker.UgniusFalze.Models.SleepRecord", b =>
                 {
                     b.Property<int>("SleepRecordId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    b.Property<int>("RecordEnd")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("int");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SleepRecordId"));
 
-                    b.Property<int>("RecordStart")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("int");
+                    b.Property<long>("RecordEnd")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RecordStart")
+                        .HasColumnType("bigint");
 
                     b.HasKey("SleepRecordId");
 

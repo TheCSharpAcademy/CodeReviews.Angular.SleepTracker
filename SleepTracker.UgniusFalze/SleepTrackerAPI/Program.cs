@@ -12,8 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SleepRecordContext>(optionsBuilder =>
 {
-    var serverVersion = new MySqlServerVersion(new Version(8, 0, 34));
-    optionsBuilder.UseMySql("server=localhost; database=SleepRecord; user=ugnius;password=testPassword123-", serverVersion);
+    optionsBuilder.UseNpgsql(@"Host=localhost;Database=SleepRecords;Username=postgres;Password=");
 });
 builder.Services.AddScoped<ISleepRecordRepository, SleepRecordRepository>();
 builder.Services.AddControllers();

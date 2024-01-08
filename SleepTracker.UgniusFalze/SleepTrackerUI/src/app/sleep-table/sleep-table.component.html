@@ -1,12 +1,17 @@
 <div class="full-width">
   <div class="full-width-table mat-elevation-z8">
-    <mat-form-field>
-      <mat-label>Filter Date</mat-label>
-      <select #filterDate matNativeControl>
-        <option value="">-- Select Date --</option>
-        <option [value]="item" *ngFor="let item of dates">{{item | date}}</option>
-      </select>
-    </mat-form-field>
+    <div class="table-head">
+      <mat-form-field>
+        <mat-label>Filter Date</mat-label>
+        <select #filterDate matNativeControl>
+          <option value="">-- Select Date --</option>
+          <option [value]="item" *ngFor="let item of dates">{{item | date}}</option>
+        </select>
+      </mat-form-field>
+      <button mat-mini-fab (click)="openDialog()" class="add-button" color="primary">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
     <table mat-table matSort aria-label="Elements" [dataSource]="dataSource">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef >Id</th>

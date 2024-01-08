@@ -1,0 +1,15 @@
+<div class="dialog">
+    <h1 mat-dialog-title>Sleep Record Entry</h1>
+    <div mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Choose a date</mat-label>
+            <input matInput type="datetime-local" [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close>Close</button>
+    </div>
+</div>

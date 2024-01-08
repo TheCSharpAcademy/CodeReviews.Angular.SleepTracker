@@ -9,9 +9,11 @@ import { NgIf } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { distinctUntilChanged, fromEvent, tap } from 'rxjs';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelect } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { AddDialogComponent } from '../add-dialog/add-dialog.component';
 
 @Component({
   selector: 'app-sleep-table',
@@ -19,7 +21,7 @@ import { MatSelect } from '@angular/material/select';
   styleUrls: ['./sleep-table.component.css'],
   standalone: true,
   imports: [CommonModule,MatTableModule, MatPaginatorModule, 
-    MatSortModule, NgIf, MatProgressBarModule, MatInputModule]
+    MatSortModule, NgIf, MatProgressBarModule, MatInputModule, MatIconModule, MatButtonModule]
 })
 export class SleepTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -29,7 +31,7 @@ export class SleepTableComponent implements AfterViewInit {
   count!:number;
   dates!:Date[];
 
-  constructor(private service: SleepRecordService){}
+  constructor(private service: SleepRecordService, public dialog: MatDialog){}
 
   ngOnInit(){
     this.dataSource = new SleepTableDataSource(this.service);
@@ -63,5 +65,9 @@ export class SleepTableComponent implements AfterViewInit {
       this.paginator.pageSize,
       dateFilter);
     this.service.getSleepRecordCount(dateFilter).subscribe((count) => this.count = count);
+  }
+
+  openDialog(){
+    const dialogRef = this.dialog.open(AddDialogComponent);
   }
 }

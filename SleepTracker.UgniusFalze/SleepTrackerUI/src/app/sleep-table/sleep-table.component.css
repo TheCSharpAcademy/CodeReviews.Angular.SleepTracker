@@ -10,3 +10,13 @@
   justify-content: center;
   margin-top: 1rem;
 }
+
+.table-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-button{
+  margin-right: 1rem;
+}

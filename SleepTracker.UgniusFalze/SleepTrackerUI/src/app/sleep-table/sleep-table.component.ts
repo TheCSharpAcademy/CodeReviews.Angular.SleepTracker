@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { AddDialogComponent } from '../add-dialog/add-dialog.component';
+import { ISleepInput } from '../ISleepInput';
 
 @Component({
   selector: 'app-sleep-table',
@@ -39,6 +40,10 @@ export class SleepTableComponent implements AfterViewInit {
   }
 
   ngOnInit(){
+    this.update();
+  }
+
+  update(){
     this.dataSource = new SleepTableDataSource(this.service);
     this.dataSource.loadSleepRecords(0, 10);
     this.service.getSleepRecordCount().subscribe((count) => this.count = count);
@@ -79,7 +84,8 @@ export class SleepTableComponent implements AfterViewInit {
 
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      const resultParsed: ISleepInput = {RecordStart: new Date(result.RecordStart), RecordEnd: new Date(result.RecordEnd)};
+      this.service.addSleepRecord(resultParsed).subscribe(() => this.update());
     })
   }
 }

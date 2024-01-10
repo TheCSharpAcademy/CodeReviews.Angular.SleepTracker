@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { SleepRecord } from './sleep-table/sleep-record';
+import { ISleepInput } from './ISleepInput';
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,17 @@ export class SleepRecordService {
       return data;
     })
   )
+ }
+
+ addSleepRecord(input: ISleepInput) : Observable<SleepRecord>{
+  return this.http.post<SleepRecord>(this.apiUrl, input, this.httpOptions).pipe(
+    catchError(this.handleError)
+  );
+ }
+
+ private handleError(error: HttpErrorResponse) {
+  console.error(error.error);
+  
+  return throwError(() => new Error('Something bad happened; please try again later.'));
  }
 }

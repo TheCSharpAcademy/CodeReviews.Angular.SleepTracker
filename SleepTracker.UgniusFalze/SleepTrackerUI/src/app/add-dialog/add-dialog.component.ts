@@ -39,19 +39,3 @@ export class AddDialogComponent {
   @Input() dialogData: ISleepInput = {RecordStart: new Date, RecordEnd: new Date}
   constructor(public dialogRef: MatDialogRef<AddDialogComponent>){}
 }
-
-function invalidSleepDate(wakeUpDate: Date) : ValidatorFn {
-  return(control:AbstractControl):ValidationErrors | null => {
-    const controlDate = new Date(control.value);
-    const wakeUpDateParsed = new Date(wakeUpDate);
-    return wakeUpDateParsed < controlDate ? {tooHighDate:{value: controlDate}} : null
-  }
-}
-
-function invalidWakeUpDate(sleepDate: Date) : ValidatorFn {
-  return(control:AbstractControl):ValidationErrors | null => {
-    const controlDate = new Date(control.value);
-    const sleepDateParsed = new Date(sleepDate);
-    return sleepDateParsed > controlDate ? {tooLowDate:{value: controlDate}} : null
-  }
-}

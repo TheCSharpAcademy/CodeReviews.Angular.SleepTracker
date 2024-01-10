@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { SleepRecord } from './sleep-table/sleep-record';
 import { ISleepInput } from './ISleepInput';
+import { ErrorHandlingService } from './error-handling.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class SleepRecordService {
 
   private apiUrl:string = 'https://localhost:7277/api/SleepRecord'
 
- constructor(private http:HttpClient) { }
+ constructor(private http:HttpClient, private errorHandlerService: ErrorHandlingService) { }
 
  getSleepRecords(page: number, limit:number, date?:Date) : Observable<SleepRecord[]>{
   let url = `${this.apiUrl}/${limit}/${page}`

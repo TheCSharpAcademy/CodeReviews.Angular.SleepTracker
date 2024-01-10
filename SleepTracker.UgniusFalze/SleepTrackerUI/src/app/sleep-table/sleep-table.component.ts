@@ -30,8 +30,13 @@ export class SleepTableComponent implements AfterViewInit {
   dataSource!: SleepTableDataSource;
   count!:number;
   dates!:Date[];
+  recordStart:Date;
+  recordEnd:Date;
 
-  constructor(private service: SleepRecordService, public dialog: MatDialog){}
+  constructor(private service: SleepRecordService, public dialog: MatDialog){
+    this.recordStart = new Date();
+    this.recordEnd = new Date();
+  }
 
   ngOnInit(){
     this.dataSource = new SleepTableDataSource(this.service);
@@ -68,6 +73,13 @@ export class SleepTableComponent implements AfterViewInit {
   }
 
   openDialog(){
-    const dialogRef = this.dialog.open(AddDialogComponent);
+    const dialogRef = this.dialog.open(AddDialogComponent, {
+      width: '400px'
+    });
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    })
   }
 }

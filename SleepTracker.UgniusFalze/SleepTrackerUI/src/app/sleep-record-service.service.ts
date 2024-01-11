@@ -18,10 +18,10 @@ export class SleepRecordService {
 
  constructor(private http:HttpClient, private errorHandlerService: ErrorHandlingService) { }
 
- getSleepRecords(page: number, limit:number, date?:Date) : Observable<SleepRecord[]>{
+ getSleepRecords(page: number, limit:number, month?:number) : Observable<SleepRecord[]>{
   let url = `${this.apiUrl}/${limit}/${page}`
-  if(date !== undefined){
-    url += `?date=${new Date(date).toLocaleDateString('sv')}`;
+  if(month !== undefined){
+    url += `?month=${month}`;
   }
   return this.http.get<SleepRecord[]>(url).pipe(
     map((data: SleepRecord[]) => {
@@ -34,10 +34,10 @@ export class SleepRecordService {
   );
  }
 
- getSleepRecordCount(date?:Date) : Observable<number>{
+ getSleepRecordCount(month?:number) : Observable<number>{
   let url = `${this.apiUrl}/getCount`;
-  if(date !== undefined){
-    url += `?date=${new Date(date).toLocaleDateString('sv')}`;
+  if(month !== undefined){
+    url += `?month=${month}`;
   }
   return this.http.get<number>(url).pipe(
     map((data: any) => {
@@ -46,12 +46,12 @@ export class SleepRecordService {
   );
  }
 
- getSleepRecordDates() : Observable<Date[]> {
-  const url = `${this.apiUrl}/getDates`;
-  return this.http.get<Date[]>(url).pipe(
+ getSleepRecordMonths() : Observable<number[]> {
+  const url = `${this.apiUrl}/getMonths`;
+  return this.http.get<number[]>(url).pipe(
     map((data:any[]) => {
       map((record:any) => {
-        return new Date(record);
+        return Number.parseInt(record)
       })
       return data;
     })

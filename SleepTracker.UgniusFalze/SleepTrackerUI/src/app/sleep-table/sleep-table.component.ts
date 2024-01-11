@@ -47,8 +47,10 @@ export class SleepTableComponent implements AfterViewInit {
     this.dataSource = new SleepTableDataSource(this.service);
     this.dataSource.loadSleepRecords(0, 10);
     this.service.getSleepRecordCount().subscribe((count) => this.count = count);
-    this.service.getSleepRecordDates().subscribe(
-      (dates) => this.dates = dates);
+    this.service.getSleepRecordMonths().subscribe(
+      (months) => {
+        this.dates = months.map(x => new Date(2000, x - 1, 1))
+      });
   }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */

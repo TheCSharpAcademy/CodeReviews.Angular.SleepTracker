@@ -24,9 +24,9 @@ export class SleepTableDataSource extends DataSource<SleepRecord> {
     this.loadingData.complete();
   }
 
-  public loadSleepRecords(page: number, limit: number, date?:Date){
+  public loadSleepRecords(page: number, limit: number, month?:number){
     this.loadingData.next(true);
-    this.service.getSleepRecords(page, limit, date)
+    this.service.getSleepRecords(page, limit, month)
     .pipe(
       finalize(() => this.loadingData.next(false))
     )

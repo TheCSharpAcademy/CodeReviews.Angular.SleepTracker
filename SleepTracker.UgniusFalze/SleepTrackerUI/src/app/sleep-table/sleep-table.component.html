@@ -4,8 +4,8 @@
       <mat-form-field>
         <mat-label>Filter Date</mat-label>
         <select #filterDate matNativeControl>
-          <option value="">-- Select Date --</option>
-          <option [value]="item" *ngFor="let item of dates">{{item | date}}</option>
+          <option value="">-- Select Month --</option>
+          <option [value]="item.getMonth() + 1" *ngFor="let item of dates">{{item | date: 'MMMM'}}</option>
         </select>
       </mat-form-field>
       <button mat-mini-fab (click)="openDialog()" class="add-button" color="primary">

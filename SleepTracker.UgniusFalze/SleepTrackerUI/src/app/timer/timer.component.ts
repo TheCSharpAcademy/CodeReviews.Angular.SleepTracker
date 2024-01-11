@@ -65,6 +65,10 @@ export class TimerComponent {
         this.seconds = 0;
         this.convertedSeconds = this.convertToString(this.seconds);
         this.saveable = false;
+      }else if(result === "cancel"){
+        this.seconds = 0;
+        this.convertedSeconds = this.convertToString(this.seconds);
+        this.saveable = false;
       }
     })
   }

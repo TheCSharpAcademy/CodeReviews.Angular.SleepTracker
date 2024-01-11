@@ -12,3 +12,9 @@ h1{
 .icon-display {
     transform: scale(2);
  }
+
+ .buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+ }

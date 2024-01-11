@@ -6,11 +6,6 @@ import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { SleepRecord } from './sleep-record';
 import { SleepRecordService } from '../sleep-record-service.service';
 
-/**
- * Data source for the SleepTable view. This class should
- * encapsulate all logic for fetching and manipulating the displayed data
- * (including sorting, pagination, and filtering).
- */
 export class SleepTableDataSource extends DataSource<SleepRecord> {
   private data = new BehaviorSubject<SleepRecord[]>([]);
   private loadingData = new BehaviorSubject<boolean>(false);
@@ -39,9 +34,4 @@ export class SleepTableDataSource extends DataSource<SleepRecord> {
         this.data.next(sleepRecords);
       })
   }
-}
-
-/** Simple sort comparator for example ID/Name columns (for client-side sorting). */
-function compare(a: string | number, b: string | number, isAsc: boolean): number {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

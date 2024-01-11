@@ -21,6 +21,7 @@ export class TimerComponent {
   private seconds:number;
   public convertedSeconds:string = '00:00:00';
   public timerRunning: boolean = false;
+  public saveable: boolean = false;
   constructor(public dialog: MatDialog, public service: SleepRecordService){
     this.seconds = 0;
   }
@@ -31,29 +32,41 @@ export class TimerComponent {
 
 
   timerControl(){
+    this.saveable = true;
     if(this.timerRunning){
       this.timer?.unsubscribe();
       this.timerRunning = false;
-      const dialogRef = this.dialog.open(AddTimerResultComponent, {
-        width:'500px',
-      });
-
-      dialogRef.afterClosed().subscribe((result) => {
-        if(result === "save"){
-          const recordStart = new Date(this.initialDate!);
-          this.initialDate?.setSeconds(this.initialDate.getSeconds(), this.seconds);
-          const recordEnd = new Date(this.initialDate!);
-          this.service.addSleepRecord({RecordStart: recordStart, RecordEnd: recordEnd}).subscribe();
-        }
-      })
     }else{
       this.timer = timer(0, 1000).subscribe(n => {
-        this.seconds = n;
+        this.seconds += 1;
         this.convertedSeconds = this.convertToString(this.seconds);
       });
       this.timerRunning = true;
       this.initialDate = new Date();
     }
+  }
+
+  timerSave(){
+    if(this.timerRunning){
+      this.timer?.unsubscribe();
+    }
+    this.timerRunning = false;
+
+    const dialogRef = this.dialog.open(AddTimerResultComponent, {
+      width:'500px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result === "save"){
+        const recordStart = new Date(this.initialDate!);
+        this.initialDate?.setSeconds(this.initialDate.getSeconds() + this.seconds);
+        const recordEnd = new Date(this.initialDate!);
+        this.service.addSleepRecord({RecordStart: recordStart, RecordEnd: recordEnd}).subscribe();
+        this.seconds = 0;
+        this.convertedSeconds = this.convertToString(this.seconds);
+        this.saveable = false;
+      }
+    })
   }
 
 

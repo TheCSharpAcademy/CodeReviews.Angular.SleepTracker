@@ -7,11 +7,11 @@ public interface ISleepRecordRepository
 {
     public Task AddSleepRecord(SleepRecord record);
     public Task UpdateSleepRecord(SleepRecord record);
-    public Task<ActionResult<IEnumerable<SleepRecordDTO>>> GetRecords(string? date, int limit, int page);
+    public Task<ActionResult<IEnumerable<SleepRecordDTO>>> GetRecords(int? date, int limit, int page);
     public Task DeleteSleepRecord(SleepRecord record);
     public bool SleepRecordExists(int id);
     public Task<SleepRecord?> GetSleepRecord(int id);
-    public Task<long> GetSleepRecordCount(string? date);
+    public Task<long> GetSleepRecordCount(int? month);
 
-    public Task<ActionResult<IEnumerable<DateTime>>> GetDates();
+    public Task<ActionResult<IEnumerable<int>>> GetMonths();
 }

@@ -6,14 +6,13 @@ namespace SleepTracker.UgniusFalze.Repositories;
 
 public class SleepRecordRepository(SleepRecordContext context) : ISleepRecordRepository
 {
-    public async Task<ActionResult<IEnumerable<SleepRecordDTO>>> GetRecords(string? date, int limit = 10, int page = 0)
+    public async Task<ActionResult<IEnumerable<SleepRecordDTO>>> GetRecords(int? month, int limit = 10, int page = 0)
     {
 
         var sleepRecordQuery = (IQueryable<SleepRecord>)context.SleepRecords;
-        if (date != null)
+        if (month != null)
         {
-            var convertedDate = DateTime.Parse(date).Date;
-            sleepRecordQuery = sleepRecordQuery.Where(record => record.RecordStart.Date == convertedDate);
+            sleepRecordQuery = sleepRecordQuery.Where(record => record.RecordStart.Date.Month == month);
         }
 
         var sleepRecords = await sleepRecordQuery
@@ -51,21 +50,20 @@ public class SleepRecordRepository(SleepRecordContext context) : ISleepRecordRep
         await SaveChanges();
     }
 
-    public async Task<long> GetSleepRecordCount(string? date)
+    public async Task<long> GetSleepRecordCount(int? month)
     {
         IQueryable<SleepRecord> query = context.SleepRecords;
-        if (date != null)
+        if (month != null)
         {
-            var convertedDate = DateTime.Parse(date).Date;
-            query = query.Where(record => record.RecordStart.Date == convertedDate);
+            query = query.Where(record => record.RecordStart.Date.Month == month);
         }
         return await query.CountAsync();
     }
 
-    public async Task<ActionResult<IEnumerable<DateTime>>> GetDates()
+    public async Task<ActionResult<IEnumerable<int>>> GetMonths()
     {
         return await context.SleepRecords
-            .Select(record => record.RecordStart.Date)
+            .Select(record => record.RecordStart.Date.Month)
             .Distinct()
             .ToListAsync();
     }

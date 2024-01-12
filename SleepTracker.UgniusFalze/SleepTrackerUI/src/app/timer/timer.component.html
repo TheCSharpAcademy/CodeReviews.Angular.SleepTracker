@@ -1,0 +1,11 @@
+<div class="timer-container">
+    <h1>{{convertedSeconds}}</h1>
+    <div class="buttons">
+        <button *ngIf="saveable" mat-fab class="icon-display" color="primary" (click)="timerSave()">
+            <mat-icon>stop_circle</mat-icon>
+        </button>
+        <button mat-fab class="icon-display" color="primary" (click)="timerControl()">
+            <mat-icon>{{!timerRunning? 'play_circle' : 'pause_circle'}}</mat-icon>
+        </button>
+    </div>
+</div>

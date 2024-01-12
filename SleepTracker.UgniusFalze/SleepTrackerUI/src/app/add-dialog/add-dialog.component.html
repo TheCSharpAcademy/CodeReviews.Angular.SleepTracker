@@ -1,0 +1,31 @@
+<form #dialogForm="ngForm" class="dialog">
+    <h1 mat-dialog-title>Sleep Record Entry</h1>
+    <div mat-dialog-content>
+        <mat-form-field class="calendar">
+            <mat-label>When did you go to sleep?</mat-label>
+            <input 
+                matInput 
+                type="datetime-local"
+                name="recordStart"
+                [ngModel]="dialogData.RecordStart | date:'yyyy-MM-ddTHH:mm'"
+                (ngModelChange)="dialogData.RecordStart=$event"
+                [appInvalidWakeUpDate]="dialogData.RecordEnd"
+                required>
+        </mat-form-field>
+        <mat-form-field class="calendar">
+            <mat-label>When did you wake up?</mat-label>
+            <input 
+                matInput 
+                type="datetime-local" 
+                name="recordEnd" 
+                [ngModel]="dialogData.RecordEnd | date:'yyyy-MM-ddTHH:mm'" 
+                (ngModelChange)="dialogData.RecordEnd=$event" 
+                [appInvalidSleepDate]="dialogData.RecordStart"
+                required>
+        </mat-form-field>
+    </div>
+    <div class="buttons" mat-dialog-actions>
+        <button mat-button mat-dialog-close>Close</button>
+        <button mat-raised-button color="primary" [disabled]="dialogForm.invalid" [mat-dialog-close]="dialogData">Save</button>
+    </div>
+</form>

@@ -1,0 +1,51 @@
+<form
+  action=""
+  class="container text-white my-2"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
+  <mat-form-field appearance="fill" class="form-group my-2">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="date" />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <div class="form-group">
+    <label for="hours" class="d-flex align-items-center"
+      ><span class="fs-2 p-2">{{ range.value }}</span>
+      <button
+        type="button"
+        mat-raised-button
+        #timerButton
+        color="primary"
+        class="mt-2"
+        (click)="Timer(range, timerButton, timerValue)"
+      >
+        Start Timer
+      </button>
+      <span #timerValue class="fs-2 p-2 pt-3"> </span>
+      <i class="fa-solid fa-bed ms-auto me-3 fs-2"></i>
+      <span class="fs-2 fw-medium"> hours of sleep </span>
+    </label>
+
+    <span class="px-3 mt-2 d-block"
+      >All submitted time less then 1 hour will be displayed as 1</span
+    >
+    <mat-slider
+      type="range"
+      class="form-control-range w-100"
+      id="hours"
+      min="1"
+      max="16"
+      value="1"
+      step="0.25"
+    >
+      <input matSliderThumb #range formControlName="hours" />
+    </mat-slider>
+  </div>
+  <button type="submit" mat-raised-button color="primary" class="mt-2">
+    Submit
+  </button>
+</form>

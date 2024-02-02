@@ -1,0 +1,64 @@
+<div class="mt-4">
+  <div class="mt-[10px]">
+    <div class="mat-elevation-z8">
+      <div class="filter d-flex">
+        <mat-form-field class="w-25">
+          <mat-label>Filter by date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            (dateChange)="applyFilter($event.value)"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker> </mat-form-field
+        ><button
+          mat-raised-button
+          color="primary"
+          class="btn"
+          [ngStyle]="{ 'margin-left': '10px', height: '55px' }"
+          (click)="resetFilter()"
+        >
+          Reset
+        </button>
+      </div>
+
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="date">
+          <th mat-header-cell class="text-white" *matHeaderCellDef>Date</th>
+          <td mat-cell class="text-white" *matCellDef="let row">
+            {{ row.date | date }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="hours">
+          <th mat-header-cell class="text-white" *matHeaderCellDef>Hours</th>
+          <td mat-cell class="text-white" *matCellDef="let row">
+            {{ row.hours }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell class="text-white" *matHeaderCellDef>action</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button color="warn" (click)="deleteRecord(row)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator
+        [length]="10"
+        [pageSizeOptions]="[5, 10, 15, 20]"
+        aria-label="Select page"
+        class="pg text-white"
+      ></mat-paginator>
+    </div>
+  </div>
+</div>

@@ -12,6 +12,8 @@ import { AddSleepComponent } from './add-sleep/add-sleep.component';
 import { SleepOverviewComponent } from './sleep-overview/sleep-overview.component';
 import { SleepHomeComponent } from './sleep-home/sleep-home.component'; 
 import { HttpClientModule } from '@angular/common/http';
+import {MatTableModule} from '@angular/material/table'; 
+import {MatPaginatorModule} from '@angular/material/paginator'; 
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
   providers: [
     provideAnimationsAsync()

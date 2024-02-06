@@ -1,6 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { SleepRecord } from '../sleep-record';
 import { ApiService } from '../services/api.service';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatSort, MatSortModule} from '@angular/material/sort';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-sleep-overview',
@@ -9,15 +14,29 @@ import { ApiService } from '../services/api.service';
 })
 export class SleepOverviewComponent {
   
+  displayedColumns: string[] = ['id', 'sleepStart', 'sleepEnd', 'duration', 'action'];
+  dataSource!: MatTableDataSource<SleepRecord>;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
   sleeps: SleepRecord[] = [];
 
   constructor(private api: ApiService) { }
   
-  testSleeps(): void{
+  ngOnInit():void {
+    this.getAllSleeps();
+  }
+
+  getAllSleeps(){
     this.api.getSleeps()
       .subscribe({
-        next: (sleeps) => { console.log(sleeps); },
-        error: (response) => { console.log("error occurred" + response); }
+        next: (response) => { 
+          this.dataSource = new MatTableDataSource(response);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        },
+        error: (err) => { alert("error occurred while fetching records" + err); }
       });
   }
 }

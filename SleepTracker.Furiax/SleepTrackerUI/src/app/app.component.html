@@ -1,21 +1,18 @@
 <p>
-    <mat-toolbar>
-        <span>My Application</span>
-    </mat-toolbar>
-</p>
-
-<p>
-    <mat-toolbar color="primary">
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-toolbar class="sleep-toolbar" >
+        <button mat-icon-button class="menu-icon" aria-label="menu icon" [matMenuTriggerFor]="menuOptions">
             <mat-icon>menu</mat-icon>
         </button>
-        <span>My App</span>
+        <mat-menu #menuOptions="matMenu">
+            <button mat-menu-item routerLink="/sleep-home">Home</button>
+            <button mat-menu-item routerLink="/sleep-overview">Sleep overview</button>
+            <button mat-menu-item routerLink="/add-sleep">Add sleeping session</button>
+          </mat-menu>
+        <span>Sleep InsightzZz</span>
         <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-            <mat-icon>favorite</mat-icon>
-        </button>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-            <mat-icon>share</mat-icon>
-        </button>
+        <!-- <button mat-raised-button style="background-color: #505a74; color:#eaebfe ;">Add Sleeping Session</button> -->
     </mat-toolbar>
 </p>
+<router-outlet></router-outlet>
+
+

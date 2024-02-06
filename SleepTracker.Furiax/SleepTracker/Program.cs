@@ -1,10 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using SleepTracker;
 
+var MyAllowedOrigins = "_myAllowOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors(options =>
+    { options.AddPolicy(name: MyAllowedOrigins,
+        policy => { policy.WithOrigins("http://localhost:4200"); });
+    });
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<SleepTrackerContext>(opt =>
@@ -23,6 +27,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowedOrigins);
 
 app.UseAuthorization();
 

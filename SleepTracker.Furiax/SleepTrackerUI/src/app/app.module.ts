@@ -7,10 +7,18 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule} from '@angular/material/menu';
+import { AddSleepComponent } from './add-sleep/add-sleep.component';
+import { SleepOverviewComponent } from './sleep-overview/sleep-overview.component';
+import { SleepHomeComponent } from './sleep-home/sleep-home.component'; 
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AddSleepComponent,
+    SleepOverviewComponent,
+    SleepHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -18,6 +26,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    MatMenuModule,
+    HttpClientModule
   ],
   providers: [
     provideAnimationsAsync()

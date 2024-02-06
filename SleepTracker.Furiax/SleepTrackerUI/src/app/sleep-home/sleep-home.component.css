@@ -1,0 +1,17 @@
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #b0b8ce;
+}
+.welcome-text {
+    color: #b0b8ce;
+}
+.welcome-image {
+    margin-top: 20px;
+}
+img{
+    border-radius: 25px;
+}

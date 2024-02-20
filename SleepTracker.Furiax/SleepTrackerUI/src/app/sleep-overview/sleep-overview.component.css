@@ -1,9 +1,22 @@
 table {
     width: 100%;
+    background-color: #104d8f;
   }
-  
+  td, th{
+    color: #b0b8ce;
+  }
+  mat-paginator{
+    background-color: #104d8f;
+    color: #b0b8ce;
+  }
   .mat-mdc-form-field {
     font-size: 14px;
     width: 100%;
   }
- 
+
+  .mat-paginator-navigation .mat-paginator-navigation-first, 
+  .mat-paginator-navigation .mat-paginator-navigation-last,
+  .mat-paginator-page-size-select {
+  color: #b0b8ce;
+}
+

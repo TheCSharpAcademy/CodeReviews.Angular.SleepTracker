@@ -39,4 +39,10 @@ export class SleepOverviewComponent {
         error: (err) => { alert("error occurred while fetching records" + err); }
       });
   }
+  calculateDuration(start: Date, end: Date): string{
+    const durationMs = new Date(end).getTime() - new Date(start).getTime();
+    const hours = Math.floor(durationMs / (1000*60 *60));
+    const minutes = Math.floor((durationMs % (1000*60*60)) / (1000 * 60));
+    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+  }
 }

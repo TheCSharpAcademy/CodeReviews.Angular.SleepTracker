@@ -1,4 +1,4 @@
-<h1>Overview of your last added sleeping sessions:</h1>
+<h1>Overview of your last sleeping sessions:</h1>
 
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
@@ -20,8 +20,8 @@
       </ng-container>
   
       <ng-container matColumnDef="duration">
-        <th mat-header-cell *matHeaderCellDef> Duration </th>
-        <td mat-cell *matCellDef="let row"> duration </td>
+        <th mat-header-cell *matHeaderCellDef> Time Slept </th>
+        <td mat-cell *matCellDef="let row"> {{calculateDuration(row.sleepStart, row.sleepEnd)}} </td>
       </ng-container>
       
       <ng-container matColumnDef="action">

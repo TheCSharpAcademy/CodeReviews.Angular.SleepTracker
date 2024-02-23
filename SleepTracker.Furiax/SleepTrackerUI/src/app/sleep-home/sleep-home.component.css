@@ -15,3 +15,7 @@
 img{
     border-radius: 25px;
 }
+.companyTitle{
+    border: solid 2px;
+    padding: 10px;
+}

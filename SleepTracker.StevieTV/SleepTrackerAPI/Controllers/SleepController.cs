@@ -78,6 +78,17 @@ namespace SleepTrackerAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<SleepRecord>> PostSleepRecord(SleepRecord sleepRecord)
         {
+            var duration = sleepRecord.EndTime - sleepRecord.StartTime;
+            if (duration.Ticks <= 0)
+            {
+                return BadRequest("End time must be after start time");
+            }
+
+            if (duration.TotalHours > 23)
+            {
+                return BadRequest("Sleep shouldn't be logged for more than a day, that's not healthy!");
+            }
+            
             _context.SleepRecords.Add(sleepRecord);
             await _context.SaveChangesAsync();
 

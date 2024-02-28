@@ -22,4 +22,11 @@ export class SleepTrackerDbService {
   addSleep(sleepRecord: SleepRecord){
     return this.http.post<SleepRecord>(this.baseUrl, sleepRecord, this.httpOptions)
   }
+
+  deleteSleep(id: Number) {
+    const deleteUrl = `${this.baseUrl}/${id}`;
+    console.log(`calling ${deleteUrl}`);
+    return this.http.delete<SleepRecord>(deleteUrl, this.httpOptions);
+
+  }
 }

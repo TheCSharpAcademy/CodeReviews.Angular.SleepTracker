@@ -1,3 +1,7 @@
 mat-datepicker-toggle {
   display: inline-block;
 }
+
+.deleteIcon {
+  cursor: pointer;
+}

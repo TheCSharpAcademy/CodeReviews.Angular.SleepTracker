@@ -10,16 +10,11 @@ import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { SleepRecord } from "../sleep-record.model";
 import { SleepTrackerDbService } from "../sleep-tracker-db.service";
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from "./delete-confirmation.component";
 import 'moment/locale/en-gb'
-
-export interface SleepRecord {
-  id: string;
-  startTime: string;
-  endTime: string;
-}
 
 @Component({
   selector: 'app-sleep-data-table',
@@ -106,7 +101,7 @@ export class SleepDataTableComponent {
     deleteDialog.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
         this.sleepService.deleteSleep(Number(sleepRecord.id)).subscribe();
-        this.records = this.records.filter((record: { id: string; }) => record.id != sleepRecord.id)
+        this.records = this.records.filter((record: { id: number; }) => record.id != sleepRecord.id)
         this.dataSource = new MatTableDataSource<SleepRecord>(this.records);
         this.dataSource.sort = this.sort;
       }

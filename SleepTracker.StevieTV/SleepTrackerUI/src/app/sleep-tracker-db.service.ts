@@ -25,7 +25,6 @@ export class SleepTrackerDbService {
 
   deleteSleep(id: Number) {
     const deleteUrl = `${this.baseUrl}/${id}`;
-    console.log(`calling ${deleteUrl}`);
     return this.http.delete<SleepRecord>(deleteUrl, this.httpOptions);
 
   }

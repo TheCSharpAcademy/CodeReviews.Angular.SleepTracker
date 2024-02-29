@@ -10,5 +10,5 @@ import { MenuComponent } from "./menu/menu.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'SleepTrackerUI';
+  title = 'SleepTracker';
 }

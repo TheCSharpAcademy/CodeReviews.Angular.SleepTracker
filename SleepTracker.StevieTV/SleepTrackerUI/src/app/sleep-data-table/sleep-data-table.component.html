@@ -1,6 +1,5 @@
 <mat-form-field>
   <mat-label>Filter Table</mat-label>
-  <!--  <input matInput type="date" placeholder="search" (keyup)="applyFilter($event)" #input/>-->
   <input matInput [matDatepicker]="dateFilter" (dateInput)="applyDateFilter($event)" disabled [(ngModel)]="filterValue" >
   <mat-datepicker-toggle matIconSuffix [for]="dateFilter"></mat-datepicker-toggle>
   <mat-datepicker-toggle matSuffix (click)="clearDateFilter()">

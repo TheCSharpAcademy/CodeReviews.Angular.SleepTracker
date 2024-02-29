@@ -41,7 +41,6 @@ export class AddSleepRecordComponent {
     startTime: new Date(Date.now()),
     endTime: new Date(Date.now())
   }
-  //addSleepRecord!: FormGroup;
 
   addSleepRecord = new FormGroup({
     startDate: new FormControl('', Validators.required),

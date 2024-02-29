@@ -80,14 +80,6 @@ export class SleepDataTableComponent {
     return hDisplay + mDisplay;
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage()
-    }
-  }
   applyDateFilter(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
       this.filterValue = event.value.toISOString().substring(0, 10);

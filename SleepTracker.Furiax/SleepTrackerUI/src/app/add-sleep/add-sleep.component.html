@@ -1,40 +1,39 @@
 <h2>Add sleep data:</h2>
 
-<form class="addSleepForm">
+<form [formGroup]="sleepForm">
   <mat-form-field>
     <mat-label>Time you went to sleep:</mat-label>
-    <input matInput [matDatepicker]="pickerStart" [max]="currentDate" [value]="currentDate">
-    <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-    <mat-datepicker #pickerStart></mat-datepicker>
+    <mtx-datetimepicker #sleepStart
+                        [type]= "'datetime'"
+                        [mode]= "'landscape'"
+                        [multiYearSelector]= "false"
+                        [startView]="'month'"
+                        [twelvehour]="false"
+                        [timeInterval]="1"
+                        [touchUi]="false"
+                        [timeInput]="true">
+    </mtx-datetimepicker>
+    <input [mtxDatetimepicker]="sleepStart" formControlName="sleepStart" matInput required [max]="currentDate">
+    <mtx-datetimepicker-toggle [for]="sleepStart" matSuffix></mtx-datetimepicker-toggle>
   </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>HH:mm</mat-label>
-    <input matInput [ngxTimepicker]="timepickerStart" [format]="24" placeholder="HH:mm" [value]="currentTime">
-   <ngx-material-timepicker-toggle matSuffix [for]="timepickerStart"></ngx-material-timepicker-toggle>
-    <ngx-material-timepicker #timepickerStart></ngx-material-timepicker>
-  </mat-form-field>
-  <br>
   <mat-form-field>
     <mat-label>Time you woke up:</mat-label>
-    <input matInput [matDatepicker]="pickerEnd" [max]="currentDate" [value]="currentDate">
-    <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-    <mat-datepicker #pickerEnd></mat-datepicker>
+    <mtx-datetimepicker #sleepEnd
+                        [type]= "'datetime'"
+                        [mode]= "'landscape'"
+                        [multiYearSelector]= "false"
+                        [startView]="'month'"
+                        [twelvehour]="false"
+                        [timeInterval]="1"
+                        [touchUi]="false"
+                        [timeInput]="true">
+    </mtx-datetimepicker>
+    <input [mtxDatetimepicker]="sleepEnd" formControlName="sleepEnd" matInput required [max]="currentDate">
+    <mtx-datetimepicker-toggle [for]="sleepEnd" matSuffix></mtx-datetimepicker-toggle>
   </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>HH:mm</mat-label>
-    <input matInput [ngxTimepicker]="timepickerEnd" [format]="24" placeholder="HH:mm" [value]="currentTime">
-   <ngx-material-timepicker-toggle matSuffix [for]="timepickerEnd"></ngx-material-timepicker-toggle>
-    <ngx-material-timepicker #timepickerEnd></ngx-material-timepicker>
-  </mat-form-field>
-  <br>
-  <button>Add sleep</button>
 </form>
-
+<button mat-raised-button color="primary" (click)="save()">Add sleep</button>
+<br>
 <h2>Live tracking</h2>
-
-
-
 
 

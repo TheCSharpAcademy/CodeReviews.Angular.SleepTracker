@@ -7,7 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddCors(options =>
     { options.AddPolicy(name: MyAllowedOrigins,
-        policy => { policy.WithOrigins("http://localhost:4200"); });
+        policy => { /*policy.WithOrigins("http://localhost:4200", "http://localhost:7218")*/
+            policy.AllowAnyOrigin() 
+            .AllowAnyHeader()
+            .AllowAnyMethod(); });
     });
 builder.Services.AddControllers();
 
@@ -26,9 +29,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
 app.UseCors(MyAllowedOrigins);
+
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

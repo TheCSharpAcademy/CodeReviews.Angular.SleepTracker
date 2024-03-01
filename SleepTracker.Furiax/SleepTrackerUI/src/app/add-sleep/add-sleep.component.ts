@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
-
+import { SleepRecord } from '../sleep-record';
+import { ApiService } from '../services/api.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-sleep',
@@ -9,13 +11,39 @@ import {Component} from '@angular/core';
 
 export class AddSleepComponent {
   currentDate = new Date();
-  currentTime = this.formatTime(this.currentDate);
+  sleepForm!: FormGroup;
 
-  formatTime(date: Date): string{
-    let hours: number | string = date.getHours();
-    let minutes: number | string = date.getMinutes();
-    hours = (hours < 10) ? '0' + hours : hours;
-    minutes = (minutes < 10) ? '0' + minutes : minutes;
-    return `${hours}:${minutes}`;
+  constructor(private api: ApiService, private formBuilder: FormBuilder){
+    this.sleepForm = this.formBuilder.group({
+      sleepStart: ['', Validators.required],
+      sleepEnd: ['', Validators.required]
+    });
+  }
+
+  save(){
+    if (this.sleepForm.valid){
+        const startSleepDate: Date = this.sleepForm.value.sleepStart.toDate();
+        const endSleepDate: Date = this.sleepForm.value.sleepEnd.toDate();
+
+        const startSleepOffset: Date = new Date(startSleepDate.getTime() - (startSleepDate.getTimezoneOffset() * 60000));
+        const endSleepOffset: Date = new Date(endSleepDate.getTime() - (endSleepDate.getTimezoneOffset() * 60000));
+
+        const sleepRecord: SleepRecord ={
+        id: 0,
+        SleepStart: startSleepOffset,
+        SleepEnd: endSleepOffset
+      };
+      this.api.addSleep(sleepRecord).subscribe(
+        (response) => {
+          console.log('Sleep record added successfully', response);
+          this.sleepForm.reset()
+        },
+        (error) => {
+          console.error('Error adding sleep record:', error);
+        }
+      );
+    }else{
+      console.log('Form is invalid. Cannot add the record');
+    }
   }
 }

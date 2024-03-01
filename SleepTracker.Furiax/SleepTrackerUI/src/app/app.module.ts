@@ -16,10 +16,24 @@ import { MatPaginatorModule} from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE, MatNativeDateModule, DateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MtxGridModule } from '@ng-matero/extensions/grid';
+import { MtxSelectModule } from '@ng-matero/extensions/select';
+import { MtxDatetimepickerModule } from '@ng-matero/extensions/datetimepicker';
+import {
+  MtxCalendarView,
+  MtxDatetimepicker,
+  MtxDatetimepickerInput,
+  MtxDatetimepickerMode,
+  MtxDatetimepickerToggle,
+  MtxDatetimepickerType,
+} from '@ng-matero/extensions/datetimepicker';
+import { MTX_DATETIME_FORMATS } from '@ng-matero/extensions/core';
+import { UntypedFormControl } from '@angular/forms';
+import { MtxNativeDatetimeModule } from '@ng-matero/extensions/core';
+import { MtxMomentDatetimeModule } from '@ng-matero/extensions-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -45,12 +59,52 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxMaterialTimepickerModule
+    MtxGridModule,
+    MtxSelectModule,
+    MtxDatetimepickerModule,
+    MtxDatetimepicker,
+    MtxDatetimepickerInput,
+    MtxDatetimepickerToggle,
+    MtxNativeDatetimeModule,
+    MtxMomentDatetimeModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {
+      provide: MTX_DATETIME_FORMATS,
+      useValue: {
+        parse: {
+          dateInput: 'YYYY-MM-DD',
+          monthInput: 'MMMM',
+          yearInput: 'YYYY',
+          timeInput: 'HH:mm',
+          datetimeInput: 'YYYY-MM-DD HH:mm',
+        },
+        display: {
+          dateInput: 'YYYY-MM-DD',
+          monthInput: 'MMMM',
+          yearInput: 'YYYY',
+          timeInput: 'HH:mm',
+          datetimeInput: 'YYYY-MM-DD HH:mm',
+          monthYearLabel: 'YYYY MMMM',
+          dateA11yLabel: 'LL',
+          monthYearA11yLabel: 'MMMM YYYY',
+          popupHeaderDateLabel: 'MMM DD, ddd',
+        },
+      },
+    },
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  type: MtxDatetimepickerType = 'datetime';
+  mode: MtxDatetimepickerMode = 'auto';
+  startView: MtxCalendarView = 'month';
+  multiYearSelector = false;
+  touchUi = false;
+  twelvehour = false;
+  timeInterval = 1;
+  timeInput = true;
+
+}

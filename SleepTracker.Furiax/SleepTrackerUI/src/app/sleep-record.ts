@@ -1,5 +1,5 @@
 export interface SleepRecord {
     id: number;
-    startDate: Date;
-    endDate: Date;
+    SleepStart: Date;
+    SleepEnd: Date;
 }

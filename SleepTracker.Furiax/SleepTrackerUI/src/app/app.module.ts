@@ -22,18 +22,13 @@ import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { MtxGridModule } from '@ng-matero/extensions/grid';
 import { MtxSelectModule } from '@ng-matero/extensions/select';
 import { MtxDatetimepickerModule } from '@ng-matero/extensions/datetimepicker';
-import {
-  MtxCalendarView,
-  MtxDatetimepicker,
-  MtxDatetimepickerInput,
-  MtxDatetimepickerMode,
-  MtxDatetimepickerToggle,
-  MtxDatetimepickerType,
-} from '@ng-matero/extensions/datetimepicker';
+import { MtxCalendarView, MtxDatetimepicker, MtxDatetimepickerInput, MtxDatetimepickerMode,
+  MtxDatetimepickerToggle, MtxDatetimepickerType} from '@ng-matero/extensions/datetimepicker';
 import { MTX_DATETIME_FORMATS } from '@ng-matero/extensions/core';
-import { UntypedFormControl } from '@angular/forms';
 import { MtxNativeDatetimeModule } from '@ng-matero/extensions/core';
 import { MtxMomentDatetimeModule } from '@ng-matero/extensions-moment-adapter';
+import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -67,9 +62,13 @@ import { MtxMomentDatetimeModule } from '@ng-matero/extensions-moment-adapter';
     MtxDatetimepickerToggle,
     MtxNativeDatetimeModule,
     MtxMomentDatetimeModule,
+    MatDialogModule,
+    MatDialogActions,
+    MatDialogContent,
+    MatDialogClose
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    { provide: MAT_DATE_LOCALE, useValue: 'nl-BE' },
     provideAnimationsAsync(),
     {
       provide: MTX_DATETIME_FORMATS,

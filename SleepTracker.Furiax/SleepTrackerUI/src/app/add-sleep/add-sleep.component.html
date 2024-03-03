@@ -28,8 +28,9 @@
                         [touchUi]="false"
                         [timeInput]="true">
     </mtx-datetimepicker>
-    <input [mtxDatetimepicker]="sleepEnd" formControlName="sleepEnd" matInput required [max]="currentDate">
+    <input [mtxDatetimepicker]="sleepEnd" formControlName="sleepEnd" matInput required [min]="sleepStart" [max]="currentDate">
     <mtx-datetimepicker-toggle [for]="sleepEnd" matSuffix></mtx-datetimepicker-toggle>
+    <mat-error *ngIf="sleepForm.get('sleepEnd')?.hasError('invalidEndTime')">Must be greater than sleep time.</mat-error>
   </mat-form-field>
 </form>
 <button mat-raised-button color="primary" (click)="save()">Add sleep</button>

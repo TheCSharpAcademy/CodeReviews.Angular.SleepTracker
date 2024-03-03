@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import { SleepRecord } from '../sleep-record';
 import { ApiService } from '../services/api.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ControlContainer } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 
 @Component({
@@ -17,7 +17,7 @@ export class AddSleepComponent {
   constructor(private api: ApiService, private formBuilder: FormBuilder){
     this.sleepForm = this.formBuilder.group({
       sleepStart: ['', Validators.required],
-      sleepEnd: ['', Validators.required]
+      sleepEnd: ['', [Validators.required, this.endTimeValidator]],
     });
   }
 
@@ -48,6 +48,17 @@ export class AddSleepComponent {
     }
   }
 
+  endTimeValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const startTime = control.root.get('sleepStart')?.value;
+    const endTime = control.value;
+    
+    if (startTime && endTime && startTime >= endTime) {
+      return { 'invalidEndTime': true };
+    }
+    
+    return null;
+  }
+  
 
   displayTime: string = '00:00:00';
   timerStarted: boolean = false;

@@ -34,6 +34,16 @@
 </form>
 <button mat-raised-button color="primary" (click)="save()">Add sleep</button>
 <br>
+
 <h2>Live tracking</h2>
 
-
+<mat-card>
+  <mat-card-content>
+    <div>
+      <button mat-raised-button color="primary" (click)="startTimer()" [disabled]="timerStarted">Start</button>
+      <button mat-raised-button color="warn" (click)="stopTimer()" [disabled]="!timerStarted">Stop</button>
+    </div>
+    <div>{{ displayTime }}</div>
+  </mat-card-content>
+   
+</mat-card>

@@ -27,7 +27,7 @@ import { MtxCalendarView, MtxDatetimepicker, MtxDatetimepickerInput, MtxDatetime
 import { MTX_DATETIME_FORMATS } from '@ng-matero/extensions/core';
 import { MtxNativeDatetimeModule } from '@ng-matero/extensions/core';
 import { MtxMomentDatetimeModule } from '@ng-matero/extensions-moment-adapter';
-import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card'; 
 
 
 @NgModule({
@@ -62,10 +62,7 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule } f
     MtxDatetimepickerToggle,
     MtxNativeDatetimeModule,
     MtxMomentDatetimeModule,
-    MatDialogModule,
-    MatDialogActions,
-    MatDialogContent,
-    MatDialogClose
+    MatCardModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'nl-BE' },

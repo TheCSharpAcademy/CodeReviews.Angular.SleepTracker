@@ -5,8 +5,6 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatDialog} from '@angular/material/dialog';
-import { ConfirmationDeleteDialogComponent } from '../confirmation-delete-dialog/confirmation-delete-dialog.component';
 
 @Component({
   selector: 'app-sleep-overview',
@@ -23,7 +21,7 @@ export class SleepOverviewComponent {
 
   sleeps: SleepRecord[] = [];
 
-  constructor(private api: ApiService, private dialog: MatDialog) { }
+  constructor(private api: ApiService) { }
   
   ngOnInit():void {
     this.getAllSleeps();
@@ -47,25 +45,13 @@ export class SleepOverviewComponent {
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
   }
   delete(recordId: number): void{
-    const dialogWindow = this.dialog.open(ConfirmationDeleteDialogComponent, {
-      width: '250px',
-      data: { message: `Are you sure you want to delete record ${recordId}?`},
-    })
-
-    dialogWindow.afterClosed().subscribe(result => {
-      if (result){
-        this.api.deleteSleep(recordId).subscribe(
-          {
-            next: (response) => {
-              console.log(recordId + " successfully deleted");
-              this.getAllSleeps();
-            },
-            error: (err: HttpErrorResponse) => {
-              console.log(err);
-            }
-          }
-        );
-      }
-    });
+    this.api.deleteSleep(recordId).subscribe(
+      () => {
+          console.log(recordId + " successfully deleted");
+          this.getAllSleeps();
+        },
+       (err: HttpErrorResponse) =>
+          console.log(err)
+    );
   }
 }

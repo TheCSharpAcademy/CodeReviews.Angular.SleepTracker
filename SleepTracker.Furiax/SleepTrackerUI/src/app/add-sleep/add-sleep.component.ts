@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import { SleepRecord } from '../sleep-record';
 import { ApiService } from '../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-add-sleep',
@@ -46,4 +47,42 @@ export class AddSleepComponent {
       console.log('Form is invalid. Cannot add the record');
     }
   }
+
+
+  displayTime: string = '00:00:00';
+  timerStarted: boolean = false;
+  timerStart: Date = new Date();
+  timerStop: Date = new Date();
+  timerInterval: any;
+
+  startTimer(){
+    this.timerStart = new Date();
+    this.timerStarted = true;
+    this.updateDisplayTime();
+    this.timerInterval = setInterval(() => {
+      this.updateDisplayTime();
+    }, 1000);
+  }
+  stopTimer(){
+    this.timerStop = new Date();
+    this.timerStarted = false;
+    clearInterval(this.timerInterval);
+    this.updateDisplayTime();
+    console.log(this.timerStart, this.timerStop);
+  }
+
+  updateDisplayTime(){
+    let currentTime = new Date();
+    let timeDifference = (currentTime.getTime() - this.timerStart.getTime()) / 1000;
+    let hours = Math.floor(timeDifference / 3600);
+    let minutes = Math.floor((timeDifference % 3600) / 60);
+    let seconds = Math.floor(timeDifference % 60);
+    this.displayTime = this.formatTime(hours) + ':' + this.formatTime(minutes) + ':' + this.formatTime(seconds);
+  }
+
+  formatTime(time: number)
+  {
+      return time < 10 ? '0' + time : time;
+  }
+
 }

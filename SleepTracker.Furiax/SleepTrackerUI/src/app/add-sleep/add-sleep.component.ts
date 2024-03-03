@@ -69,6 +69,22 @@ export class AddSleepComponent {
     clearInterval(this.timerInterval);
     this.updateDisplayTime();
     console.log(this.timerStart, this.timerStop);
+
+    const sleepRecord: SleepRecord ={
+      id: 0,
+      SleepStart: this.timerStart,
+      SleepEnd: this.timerStop
+    };
+    this.api.addSleep(sleepRecord).subscribe(
+      (response) => {
+        console.log('Sleep record added successfully', response);
+        this.sleepForm.reset()
+      },
+      (error) => {
+        console.error('Error adding sleep record:', error);
+      }
+    );
+
   }
 
   updateDisplayTime(){

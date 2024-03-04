@@ -1,6 +1,6 @@
 table {
-    width: 100%;
     background-color: #222c36;
+    padding: 20px;
   }
   td, th{
     color: #b0b8ce;
@@ -16,5 +16,10 @@ table {
     color: #b0b8ce;
   }
 
+  .mat-elevation-z8{
+    width: 80%; 
+    margin: 0 auto;
+  }
+ 
 
 

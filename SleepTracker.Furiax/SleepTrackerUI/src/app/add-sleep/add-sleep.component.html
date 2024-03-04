@@ -1,6 +1,7 @@
 <h2>Add sleep data:</h2>
 
-<form [formGroup]="sleepForm">
+<mat-card>
+<form [formGroup]="sleepForm" style="text-align: center;">
   <mat-form-field>
     <mat-label>Time you went to sleep:</mat-label>
     <mtx-datetimepicker #sleepStart
@@ -33,18 +34,27 @@
     <mat-error *ngIf="sleepForm.get('sleepEnd')?.hasError('invalidEndTime')">Must be greater than sleep time.</mat-error>
   </mat-form-field>
 </form>
-<button mat-raised-button color="primary" (click)="save()">Add sleep</button>
-<br>
+<div style="text-align: center;">
+  <button mat-raised-button color="primary" (click)="save()">Add sleep</button>
+</div>
+</mat-card>
 
-<h2>Live tracking</h2>
+<h2>Live tracking:</h2>
 
 <mat-card>
   <mat-card-content>
-    <div>
-      <button mat-raised-button color="primary" (click)="startTimer()" [disabled]="timerStarted">Start</button>
-      <button mat-raised-button color="warn" (click)="stopTimer()" [disabled]="!timerStarted">Stop</button>
+    <div style="text-align: center;">
+      <h1>{{ displayTime }}</h1>
+      <button mat-icon-button aria-label="Start timer" color="primary" (click)="startTimer()" [disabled]="timerStarted"><mat-icon>play_arrow</mat-icon></button>
+      <button mat-icon-button aria-label="Stop timer and add sleep" color="warn" (click)="stopTimer()" [disabled]="!timerStarted"><mat-icon>stop</mat-icon></button>
+
+      <div>
+        <mat-hint style="font-size: 10px;">Press play button to start timer.
+          <br>Press stop button to stop timer and add it to the list
+        </mat-hint>
+      </div>
     </div>
-    <div>{{ displayTime }}</div>
+    
   </mat-card-content>
    
 </mat-card>

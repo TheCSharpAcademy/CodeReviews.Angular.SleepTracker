@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import { SleepRecord } from '../sleep-record';
 import { ApiService } from '../services/api.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ControlContainer } from '@angular/forms';
-import {MatCardModule} from '@angular/material/card';
+
 
 @Component({
   selector: 'app-add-sleep',
@@ -81,21 +81,28 @@ export class AddSleepComponent {
     this.updateDisplayTime();
     console.log(this.timerStart, this.timerStop);
 
+    let timerDifference = Math.abs((this.timerStop.getTime() - this.timerStart.getTime()) / 1000)
+    
     const sleepRecord: SleepRecord ={
       id: 0,
       SleepStart: this.timerStart,
       SleepEnd: this.timerStop
     };
-    this.api.addSleep(sleepRecord).subscribe(
-      (response) => {
-        console.log('Sleep record added successfully', response);
-        this.sleepForm.reset()
-      },
-      (error) => {
-        console.error('Error adding sleep record:', error);
-      }
-    );
 
+    if(timerDifference >= 60) {
+      this.api.addSleep(sleepRecord).subscribe(
+        (response) => {
+          console.log('Sleep record added successfully', response);
+          this.sleepForm.reset()
+        },
+        (error) => {
+          console.error('Error adding sleep record:', error);
+        }
+      );
+    }
+    else{
+      console.log('Time between start and end is less than a minute, sleep record will not be added to the list');
+    }
   }
 
   updateDisplayTime(){

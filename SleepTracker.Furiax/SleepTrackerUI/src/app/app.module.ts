@@ -29,14 +29,14 @@ import { MtxNativeDatetimeModule } from '@ng-matero/extensions/core';
 import { MtxMomentDatetimeModule } from '@ng-matero/extensions-moment-adapter';
 import { MatCardModule } from '@angular/material/card'; 
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddSleepComponent,
     SleepOverviewComponent,
-    SleepHomeComponent
+    SleepHomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +65,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MtxMomentDatetimeModule,
     MatCardModule,
     MatTooltipModule,
+    MatSortModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'nl-BE' },
@@ -104,5 +105,4 @@ export class AppModule {
   twelvehour = false;
   timeInterval = 1;
   timeInput = true;
-
 }

@@ -6,6 +6,10 @@ table {
     color: #b0b8ce;
   }
 
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+  
   .mat-mdc-form-field {
     font-size: 14px;
     width: 100%;

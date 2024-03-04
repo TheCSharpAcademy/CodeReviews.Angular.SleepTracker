@@ -28,6 +28,7 @@ import { MTX_DATETIME_FORMATS } from '@ng-matero/extensions/core';
 import { MtxNativeDatetimeModule } from '@ng-matero/extensions/core';
 import { MtxMomentDatetimeModule } from '@ng-matero/extensions-moment-adapter';
 import { MatCardModule } from '@angular/material/card'; 
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { MatCardModule } from '@angular/material/card';
     MtxNativeDatetimeModule,
     MtxMomentDatetimeModule,
     MatCardModule,
+    MatTooltipModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'nl-BE' },

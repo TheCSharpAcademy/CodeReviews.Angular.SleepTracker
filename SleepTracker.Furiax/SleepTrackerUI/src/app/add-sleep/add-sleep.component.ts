@@ -83,10 +83,13 @@ export class AddSleepComponent {
 
     let timerDifference = Math.abs((this.timerStop.getTime() - this.timerStart.getTime()) / 1000)
     
+    const timerStartOffset: Date = new Date(this.timerStart.getTime() - (this.timerStart.getTimezoneOffset() * 60000));
+    const timerStopOffset: Date = new Date(this.timerStop.getTime() - (this.timerStop.getTimezoneOffset() * 60000));
+
     const sleepRecord: SleepRecord ={
       id: 0,
-      SleepStart: this.timerStart,
-      SleepEnd: this.timerStop
+      SleepStart: timerStartOffset,
+      SleepEnd: timerStopOffset
     };
 
     if(timerDifference >= 60) {

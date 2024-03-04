@@ -45,16 +45,9 @@
   <mat-card-content>
     <div style="text-align: center;">
       <h1>{{ displayTime }}</h1>
-      <button mat-icon-button aria-label="Start timer" color="primary" (click)="startTimer()" [disabled]="timerStarted"><mat-icon>play_arrow</mat-icon></button>
-      <button mat-icon-button aria-label="Stop timer and add sleep" color="warn" (click)="stopTimer()" [disabled]="!timerStarted"><mat-icon>stop</mat-icon></button>
-
-      <div>
-        <mat-hint style="font-size: 10px;">Press play button to start timer.
-          <br>Press stop button to stop timer and add it to the list
-        </mat-hint>
-      </div>
+      <button mat-icon-button aria-label="Start timer" color="primary" (click)="startTimer()" [disabled]="timerStarted" matTooltip="Press to start the timer"><mat-icon>play_arrow</mat-icon></button>
+      <button mat-icon-button aria-label="Stop timer and add sleep" color="warn" (click)="stopTimer()" [disabled]="!timerStarted" matTooltip="Press to stop timer and add record to the list"><mat-icon>stop</mat-icon></button>
     </div>
-    
   </mat-card-content>
    
 </mat-card>

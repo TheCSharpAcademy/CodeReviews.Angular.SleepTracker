@@ -5,4 +5,11 @@
     background-color: #354c7c;
     color:#b0b8ce;
 }
-  
+
+::ng-deep .mat-mdc-menu-content{
+  background-color: #354c7c;
+  color:#b0b8ce;
+}
+::ng-deep .mat-mdc-menu-item-text{
+  color:#b0b8ce;
+}

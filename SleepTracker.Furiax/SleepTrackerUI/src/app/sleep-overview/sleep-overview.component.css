@@ -21,5 +21,15 @@ table {
     margin: 0 auto;
   }
  
+  ::ng-deep .mat-mdc-select-trigger{
+    background-color: #222c36;
+    color: #b0b8ce;
+  }
+  ::ng-deep .mat-mdc-select-arrow{
+    background-color: #222c36;
+    color: #b0b8ce;
+  }
 
-
+  ::ng-deep .mat-paginator .mat-select{
+    background-color: red;
+  }

@@ -15,13 +15,15 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 export class SleepOverviewComponent {
   
   displayedColumns: string[] = ['id', 'sleepStart', 'sleepEnd', 'duration', 'action'];
-  dataSource!: MatTableDataSource<SleepRecord>;
+  dataSource: MatTableDataSource<SleepRecord> = new MatTableDataSource<SleepRecord>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   ngAfterViewInit(){
-    this.dataSource.sort = this.sort;
+    if (this.dataSource){
+      this.dataSource.sort = this.sort;
+    }
   }
 
   announceSortChange(event: Sort): void{

@@ -30,6 +30,7 @@ import { MtxMomentDatetimeModule } from '@ng-matero/extensions-moment-adapter';
 import { MatCardModule } from '@angular/material/card'; 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatCardModule,
     MatTooltipModule,
     MatSortModule,
+    MatSnackBarModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'nl-BE' },

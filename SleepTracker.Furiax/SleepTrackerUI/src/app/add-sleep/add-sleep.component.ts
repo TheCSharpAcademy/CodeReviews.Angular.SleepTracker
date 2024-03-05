@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import { SleepRecord } from '../sleep-record';
 import { ApiService } from '../services/api.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ControlContainer } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class AddSleepComponent {
   currentDate = new Date();
   sleepForm!: FormGroup;
 
-  constructor(private api: ApiService, private formBuilder: FormBuilder){
+  constructor(private api: ApiService, private formBuilder: FormBuilder, private _snackbar: MatSnackBar){
     this.sleepForm = this.formBuilder.group({
       sleepStart: ['', Validators.required],
       sleepEnd: ['', [Validators.required, this.endTimeValidator]],
@@ -37,9 +38,13 @@ export class AddSleepComponent {
       this.api.addSleep(sleepRecord).subscribe(
         (response) => {
           console.log('Sleep record added successfully', response);
+          this._snackbar.open('Sleep record added successfully', 'close', { horizontalPosition: 'center',
+        verticalPosition: 'top', duration: 5000});
           this.sleepForm.reset()
         },
         (error) => {
+          this._snackbar.open('Something went wrong, record NOT added','close', { horizontalPosition: 'center',
+          verticalPosition: 'top', duration: 5000});
           console.error('Error adding sleep record:', error);
         }
       );
@@ -121,5 +126,4 @@ export class AddSleepComponent {
   {
       return time < 10 ? '0' + time : time;
   }
-
 }

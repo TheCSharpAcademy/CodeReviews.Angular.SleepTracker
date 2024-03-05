@@ -6,6 +6,7 @@ import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sleep-overview',
@@ -36,7 +37,7 @@ export class SleepOverviewComponent {
 
   sleeps: SleepRecord[] = [];
 
-  constructor(private api: ApiService, private _liveAnnouncer : LiveAnnouncer) { }
+  constructor(private api: ApiService, private _liveAnnouncer : LiveAnnouncer, private _snackbar : MatSnackBar) { }
 
   ngOnInit():void {
     this.getAllSleeps();
@@ -65,10 +66,16 @@ export class SleepOverviewComponent {
     this.api.deleteSleep(recordId).subscribe(
       () => {
           console.log(recordId + " successfully deleted");
+          this._snackbar.open('record ' + recordId + ' successfully deleted','close', { horizontalPosition: 'center',
+          verticalPosition: 'top', duration: 5000});
           this.getAllSleeps();
         },
-       (err: HttpErrorResponse) =>
-          console.log(err)
+       (err: HttpErrorResponse) =>{
+        console.log(err);
+        this._snackbar.open('Oops, something went wrong. Try again','close', { horizontalPosition: 'center',
+          verticalPosition: 'top', duration: 5000});
+       }
+          
     );
   }
 }

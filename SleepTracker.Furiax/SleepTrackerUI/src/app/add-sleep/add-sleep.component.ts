@@ -50,6 +50,8 @@ export class AddSleepComponent {
       );
     }else{
       console.log('Form is invalid. Cannot add the record');
+      this._snackbar.open('Please fill in the form correctly, record NOT added','close', { horizontalPosition: 'center',
+          verticalPosition: 'top', duration: 5000});
     }
   }
 
@@ -84,7 +86,6 @@ export class AddSleepComponent {
     this.timerStarted = false;
     clearInterval(this.timerInterval);
     this.updateDisplayTime();
-    console.log(this.timerStart, this.timerStop);
 
     let timerDifference = Math.abs((this.timerStop.getTime() - this.timerStart.getTime()) / 1000)
     
@@ -101,15 +102,21 @@ export class AddSleepComponent {
       this.api.addSleep(sleepRecord).subscribe(
         (response) => {
           console.log('Sleep record added successfully', response);
+          this._snackbar.open('Sleep record added successfully', 'close', { horizontalPosition: 'center',
+        verticalPosition: 'top', duration: 5000});
           this.sleepForm.reset()
         },
         (error) => {
           console.error('Error adding sleep record:', error);
+          this._snackbar.open('Something went wrong, record NOT added','close', { horizontalPosition: 'center',
+          verticalPosition: 'top', duration: 5000});
         }
       );
     }
     else{
       console.log('Time between start and end is less than a minute, sleep record will not be added to the list');
+      this._snackbar.open('Record needs to be atleast 1 min long, record NOT added','close', { horizontalPosition: 'center',
+      verticalPosition: 'top', duration: 5000});
     }
   }
 

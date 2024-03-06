@@ -32,8 +32,8 @@ export class AddSleepComponent {
 
         const sleepRecord: SleepRecord ={
         id: 0,
-        SleepStart: startSleepOffset,
-        SleepEnd: endSleepOffset
+        sleepStart: startSleepOffset,
+        sleepEnd: endSleepOffset
       };
       this.api.addSleep(sleepRecord).subscribe(
         (response) => {
@@ -94,8 +94,8 @@ export class AddSleepComponent {
 
     const sleepRecord: SleepRecord ={
       id: 0,
-      SleepStart: timerStartOffset,
-      SleepEnd: timerStopOffset
+      sleepStart: timerStartOffset,
+      sleepEnd: timerStopOffset
     };
 
     if(timerDifference >= 60) {
@@ -115,7 +115,7 @@ export class AddSleepComponent {
     }
     else{
       console.log('Time between start and end is less than a minute, sleep record will not be added to the list');
-      this._snackbar.open('Record needs to be atleast 1 min long, record NOT added','close', { horizontalPosition: 'center',
+      this._snackbar.open('Record needs to be at least 1 min long, record NOT added','close', { horizontalPosition: 'center',
       verticalPosition: 'top', duration: 5000});
     }
   }

@@ -32,12 +32,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     AddSleepComponent,
     SleepOverviewComponent,
-    SleepHomeComponent,
+    SleepHomeComponent
   ],
   imports: [
     BrowserModule,

@@ -3,10 +3,13 @@ import { SleepRecord } from '../sleep-record';
 import { ApiService } from '../services/api.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sleep-overview',
@@ -37,7 +40,8 @@ export class SleepOverviewComponent {
 
   sleeps: SleepRecord[] = [];
 
-  constructor(private api: ApiService, private _liveAnnouncer : LiveAnnouncer, private _snackbar : MatSnackBar) { }
+  constructor(private api: ApiService, private _liveAnnouncer : LiveAnnouncer,
+    private _snackbar : MatSnackBar, private _dialog: MatDialog) { }
 
   ngOnInit():void {
     this.getAllSleeps();
@@ -67,7 +71,7 @@ export class SleepOverviewComponent {
       () => {
           console.log(recordId + " successfully deleted");
           this._snackbar.open('record ' + recordId + ' successfully deleted','close', { horizontalPosition: 'center',
-          verticalPosition: 'top', duration: 5000});
+          verticalPosition: 'top', duration: 5000 });
           this.getAllSleeps();
         },
        (err: HttpErrorResponse) =>{
@@ -78,4 +82,41 @@ export class SleepOverviewComponent {
           
     );
   }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.trim();
+  
+    if (filterValue === '') {
+      this.dataSource.filter = '';
+      return;
+    }
+  
+    // Split the filter value into day, month, and year
+    const [day, month, year] = filterValue.split('/').map(Number);
+  
+    // Create a new Date object with the parsed values (Note: year assumed to be 4 digits)
+    const filterDate = new Date(year + 2000, month - 1, day); // Subtract 1 from month since it's zero-based
+  
+    this.dataSource.filterPredicate = (data: SleepRecord, filter: string) => {
+      // Extract date parts from the sleepStart and sleepEnd dates
+      const startDate = new Date(data.sleepStart);
+      const endDate = new Date(data.sleepEnd);
+  
+      // Check if the date parts match the filtered date for either sleepStart or sleepEnd
+      return (startDate.getDate() === filterDate.getDate() &&
+             startDate.getMonth() === filterDate.getMonth() &&
+             startDate.getFullYear() === filterDate.getFullYear()) ||
+             (endDate.getDate() === filterDate.getDate() &&
+             endDate.getMonth() === filterDate.getMonth() &&
+             endDate.getFullYear() === filterDate.getFullYear());
+    };
+  
+    // Apply the filter
+    this.dataSource.filter = filterValue;
+  }
+  
+  
+  
+  
+  
 }

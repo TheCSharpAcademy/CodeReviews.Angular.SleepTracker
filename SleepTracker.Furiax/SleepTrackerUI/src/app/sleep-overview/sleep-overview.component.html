@@ -2,8 +2,8 @@
   <h1>Overview of your last sleeping sessions:</h1>
 
   <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" #inputfilter>
+    <mat-label>Filter on date</mat-label>
+    <input matInput placeholder="DD/MM/YY" (keyup)="applyFilter($event)" #inputfilter>
   </mat-form-field>
 
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
@@ -41,7 +41,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
       <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="5">No data matching the filter "{{inputfilter.value}}"</td>
+        <td class="mat-cell" colspan="5">No data matching the filter {{inputfilter.value}}</td>
       </tr>
     </table>
   

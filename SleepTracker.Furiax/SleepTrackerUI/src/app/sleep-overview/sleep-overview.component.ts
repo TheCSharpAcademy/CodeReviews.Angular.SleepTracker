@@ -1,11 +1,9 @@
-import { Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { SleepRecord } from '../sleep-record';
 import { ApiService } from '../services/api.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatTableDataSource} from '@angular/material/table';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -69,13 +67,11 @@ export class SleepOverviewComponent {
   delete(recordId: number): void{
     this.api.deleteSleep(recordId).subscribe(
       () => {
-          console.log(recordId + " successfully deleted");
           this._snackbar.open('record ' + recordId + ' successfully deleted','close', { horizontalPosition: 'center',
           verticalPosition: 'top', duration: 5000 });
           this.getAllSleeps();
         },
        (err: HttpErrorResponse) =>{
-        console.log(err);
         this._snackbar.open('Oops, something went wrong. Try again','close', { horizontalPosition: 'center',
           verticalPosition: 'top', duration: 5000});
        }
@@ -94,7 +90,7 @@ export class SleepOverviewComponent {
     // Split the filter value into day, month, and year
     const [day, month, year] = filterValue.split('/').map(Number);
   
-    // Create a new Date object with the parsed values (Note: year assumed to be 4 digits)
+    // Create a new Date object with the parsed values
     const filterDate = new Date(year + 2000, month - 1, day); // Subtract 1 from month since it's zero-based
   
     this.dataSource.filterPredicate = (data: SleepRecord, filter: string) => {

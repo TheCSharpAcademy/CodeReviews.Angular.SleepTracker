@@ -33,13 +33,3 @@ table {
     background-color: #222c36;
     color: #b0b8ce;
   }
-
-  .mat-mdc-text-field-wrapper{
-    background-color: #222c36 !important;
-    color: #b0b8ce !important;
-  }
-
-  ::ng-deep .mat-mdc-form-field-subscript-wrapper{
-    background-color: #222c36 !important;
-    color: #b0b8ce !important;
-  }

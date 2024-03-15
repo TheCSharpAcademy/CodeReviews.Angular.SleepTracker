@@ -22,9 +22,6 @@ import { SleepRecord } from "../sleep-record.model";
   styleUrl: './sleep-timer.component.css'
 })
 export class SleepTimerComponent implements OnInit {
-  // startDate!: Date;
-  // endDate!: Date;
-  // endDate2!: Date;
   timerStartedAt: number = 0;
   timer: number = 0;
   timerRunning!: boolean;

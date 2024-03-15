@@ -70,8 +70,8 @@ export class SleepDataTableComponent {
     const m = Math.floor(duration % 3600 / 60);
     const s = Math.floor(duration % 3600 % 60);
 
-    const hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
-    const mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes") : "";
+    const hDisplay = h > 0 ? h + (h == 1 ? " hour " : " hours ") : "";
+    const mDisplay = m > 0 ? m + (m == 1 ? " minute" : " minutes") : "";
     return hDisplay + mDisplay;
   }
 
@@ -103,6 +103,7 @@ export class SleepDataTableComponent {
         this.sleepService.deleteSleep(Number(sleepRecord.id)).subscribe();
         this.records = this.records.filter((record: { id: number; }) => record.id != sleepRecord.id)
         this.dataSource = new MatTableDataSource<SleepRecord>(this.records);
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
     })

@@ -1,0 +1,53 @@
+<h2>Add sleep data:</h2>
+
+<mat-card>
+<form [formGroup]="sleepForm" style="text-align: center;">
+  <mat-form-field>
+    <mat-label>Time you went to sleep:</mat-label>
+    <mtx-datetimepicker #sleepStart
+                        [type]= "'datetime'"
+                        [mode]= "'landscape'"
+                        [multiYearSelector]= "false"
+                        [startView]="'month'"
+                        [twelvehour]="false"
+                        [timeInterval]="1"
+                        [touchUi]="false"
+                        [timeInput]="true">
+    </mtx-datetimepicker>
+    <input [mtxDatetimepicker]="sleepStart" formControlName="sleepStart" matInput required [max]="currentDate">
+    <mtx-datetimepicker-toggle [for]="sleepStart" matSuffix></mtx-datetimepicker-toggle>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Time you woke up:</mat-label>
+    <mtx-datetimepicker #sleepEnd
+                        [type]= "'datetime'"
+                        [mode]= "'landscape'"
+                        [multiYearSelector]= "false"
+                        [startView]="'month'"
+                        [twelvehour]="false"
+                        [timeInterval]="1"
+                        [touchUi]="false"
+                        [timeInput]="true">
+    </mtx-datetimepicker>
+    <input [mtxDatetimepicker]="sleepEnd" formControlName="sleepEnd" matInput required [min]="sleepStart" [max]="currentDate">
+    <mtx-datetimepicker-toggle [for]="sleepEnd" matSuffix></mtx-datetimepicker-toggle>
+    <mat-error *ngIf="sleepForm.get('sleepEnd')?.hasError('invalidEndTime')">Must be greater than sleep time.</mat-error>
+  </mat-form-field>
+</form>
+<div style="text-align: center;">
+  <button mat-raised-button color="primary" (click)="save()">Add sleep</button>
+</div>
+</mat-card>
+
+<h2>Live tracking:</h2>
+
+<mat-card>
+  <mat-card-content>
+    <div style="text-align: center;">
+      <h1>{{ displayTime }}</h1>
+      <button mat-icon-button aria-label="Start timer" color="primary" (click)="startTimer()" [disabled]="timerStarted" matTooltip="Press to start the timer"><mat-icon>play_arrow</mat-icon></button>
+      <button mat-icon-button aria-label="Stop timer and add sleep" color="warn" (click)="stopTimer()" [disabled]="!timerStarted" matTooltip="Press to stop timer and add record to the list"><mat-icon>stop</mat-icon></button>
+    </div>
+  </mat-card-content>
+   
+</mat-card>

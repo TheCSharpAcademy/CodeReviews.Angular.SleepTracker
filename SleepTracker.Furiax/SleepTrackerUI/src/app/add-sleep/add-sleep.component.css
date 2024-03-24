@@ -1,0 +1,23 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  mat-form-field {
+    padding: 10px;
+  }
+
+  mat-card{
+    background-color: #222c36;
+    color: #b0b8ce;
+    width: 40%;
+    padding: 20px;
+    margin: 20px;
+  }
+
+::ng-deep .mtx-calendar{
+  background-color: #022954; 
+  color: #b0b8ce 
+}

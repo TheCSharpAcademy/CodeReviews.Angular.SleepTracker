@@ -1,0 +1,16 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  .sleep-toolbar {
+    background-color: #354c7c;
+    color:#b0b8ce;
+}
+
+::ng-deep .mat-mdc-menu-content{
+  background-color: #354c7c;
+  color:#b0b8ce;
+}
+::ng-deep .mat-mdc-menu-item-text{
+  color:#b0b8ce;
+}
+

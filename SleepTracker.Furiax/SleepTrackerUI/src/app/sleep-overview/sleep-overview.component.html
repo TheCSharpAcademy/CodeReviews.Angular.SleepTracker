@@ -1,0 +1,52 @@
+<div class="mat-elevation-z8">
+  <h1>Overview of your last sleeping sessions:</h1>
+
+  <mat-form-field>
+    <mat-label>Filter on date</mat-label>
+    <input matInput placeholder="DD/MM/YY" (keyup)="applyFilter($event)" #inputfilter>
+  </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> Id </th>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="sleepStart">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by start time"> Start time </th>
+        <td mat-cell *matCellDef="let row"> {{row.sleepStart | date:'dd/MM/yy HH:mm' }} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="sleepEnd">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by end time"> End time </th>
+        <td mat-cell *matCellDef="let row"> {{row.sleepEnd | date:'dd/MM/yy HH:mm' }} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="duration">
+        <th mat-header-cell *matHeaderCellDef> Time Slept </th>
+        <td mat-cell *matCellDef="let row"> {{calculateDuration(row.sleepStart, row.sleepEnd)}} </td>
+      </ng-container>
+      
+      
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row"> 
+         <button mat-icon-button color="warn" (click)="delete(row.id)">
+          <mat-icon>delete</mat-icon>
+         </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="5">No data matching the filter {{inputfilter.value}}</td>
+      </tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[7, 14, 28, 35]"
+                   showFirstLastButtons
+                   aria-label="Select page">
+    </mat-paginator>
+  </div>

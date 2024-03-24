@@ -1,0 +1,17 @@
+<p>
+    <mat-toolbar class="sleep-toolbar" >
+        <button mat-icon-button class="menu-icon" aria-label="menu icon" [matMenuTriggerFor]="menuOptions">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menuOptions="matMenu">
+            <button mat-menu-item routerLink="/sleep-home">Home</button>
+            <button mat-menu-item routerLink="/sleep-overview">Sleep overview</button>
+            <button mat-menu-item routerLink="/add-sleep">Add sleeping session</button>
+          </mat-menu>
+        <span>Welcome at Sleep InsightzZz&trade;</span>
+        <span class="example-spacer"></span>
+    </mat-toolbar>
+</p>
+<router-outlet></router-outlet>
+
+

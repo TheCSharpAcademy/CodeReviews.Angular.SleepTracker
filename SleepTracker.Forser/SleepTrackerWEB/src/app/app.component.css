@@ -1,0 +1,44 @@
+.nav {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  background-color: #3f51b5;
+  color: #fff;
+  display: flex;
+  padding: 0 16px;
+  align-items: center;
+  height: 56px;
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+.example-icon {
+  margin-right: 4px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-column-position {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}
+
+.mat-column-name {
+  padding-left: 16px;
+  font-size: 20px;
+}
+
+.mat-column-weight {
+  font-style: italic;
+}
+
+.mat-column-symbol {
+  width: 32px;
+  text-align: center;
+  font-weight: bold;
+}

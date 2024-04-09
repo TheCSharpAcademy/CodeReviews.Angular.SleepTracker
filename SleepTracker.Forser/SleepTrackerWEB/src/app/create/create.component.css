@@ -1,0 +1,35 @@
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+mat-form-field {
+  width: 90%;
+}
+.btn-sec {
+  margin-right: 5rem !important;
+  text-align: right;
+  margin-top: 1.5em;
+}
+.Update-btn {
+  margin: 5px;
+}
+.Discard-btn {
+  margin: 5px;
+}
+.text-inside {
+  position: absolute;
+  left: 5px;
+  width: 100%;
+}
+
+.mat-calendar-body-active > .mat-calendar-body-today {
+  color: purple;
+  background-color: white;
+}
+@media (max-width: 800px) {
+  .btn-sec {
+    margin-right: 1rem !important;
+  }
+}
+@media (max-width: 600px) {
+  .btn-sec {
+    margin-right: 1rem !important;
+  }
+}

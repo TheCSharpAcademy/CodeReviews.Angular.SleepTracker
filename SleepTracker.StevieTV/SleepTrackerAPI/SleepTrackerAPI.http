@@ -1,0 +1,6 @@
+@SleepTrackerAPI_HostAddress = http://localhost:5216
+
+GET {{SleepTrackerAPI_HostAddress}}/sleep/
+Accept: application/json
+
+###

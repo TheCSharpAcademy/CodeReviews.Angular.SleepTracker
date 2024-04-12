@@ -1,0 +1,26 @@
+<form [formGroup]="addSleepRecord" (submit)="submit()">
+  <mat-grid-list cols="1" rowHeight="4:1">
+    <mat-grid-tile>
+      <mat-form-field>
+        <mat-label>Start</mat-label>
+        <mat-datetimepicker-toggle [for]="startDateTimePicker" matSuffix></mat-datetimepicker-toggle>
+        <mat-datetimepicker #startDateTimePicker type="datetime" [openOnFocus]="true" [timeInterval]="5"></mat-datetimepicker>
+        <input matInput placeholder="start sleep" formControlName="startDateTime" [matDatetimepicker]="startDateTimePicker" required [autocomplete]="false">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <mat-label>End</mat-label>
+        <mat-datetimepicker-toggle [for]="endDateTimePicker" matSuffix></mat-datetimepicker-toggle>
+        <mat-datetimepicker #endDateTimePicker type="datetime" [openOnFocus]="true" [timeInterval]="5"></mat-datetimepicker>
+        <input matInput placeholder="end sleep" formControlName="endDateTime" [matDatetimepicker]="endDateTimePicker" required [autocomplete]="false">
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+
+  <mat-error *ngIf="invalidInput">
+    {{ errorResponse }}
+  </mat-error>
+
+</form>

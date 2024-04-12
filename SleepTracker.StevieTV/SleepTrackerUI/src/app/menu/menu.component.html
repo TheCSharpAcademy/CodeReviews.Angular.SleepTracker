@@ -1,0 +1,30 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/listrecords">List Sleeps</a>
+      <a mat-list-item routerLink="/addrecords">Add a Sleep</a>
+      <a mat-list-item routerLink="/timer">Sleep Timer</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      @if (isHandset$ | async) {
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      }
+      <span><mat-icon>bedtime</mat-icon> Sleep Tracker</span>
+    </mat-toolbar>
+    <div class="router-outlet-container">
+    <router-outlet />
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

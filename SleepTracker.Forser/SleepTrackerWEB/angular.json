@@ -86,10 +86,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "SleepTrackerWEB:build:production"
+              "buildTarget": "SleepTrackerWEB:build:production"
             },
             "development": {
-              "browserTarget": "SleepTrackerWEB:build:development"
+              "buildTarget": "SleepTrackerWEB:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,7 +97,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "SleepTrackerWEB:build"
+            "buildTarget": "SleepTrackerWEB:build"
           }
         },
         "test": {

@@ -1,13 +1,8 @@
 import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 
 import { SleepService } from './services/sleep.service';
 import { ISleep } from './models/ISleep.model';
@@ -28,7 +23,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     'endOfSleep',
     'typeOfSleep',
     'lengthOfSleep',
-    'Actions',
+    'action',
   ];
   dataSource = new MatTableDataSource<ISleep>();
   sleepRecords: ISleep[] = [];
@@ -38,17 +33,30 @@ export class AppComponent implements OnInit, AfterViewInit {
   SleepTypeEnum = SleepTypeConst;
   sleepEnum = SleepTypeConst.Sleep;
 
-  constructor(
-    public sleepService: SleepService,
-    private router: Router,
-    public dialog: MatDialog
-  ) {}
+  constructor(public sleepService: SleepService, public dialog: MatDialog) {}
 
+  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator = <MatPaginator>{};
   @ViewChild(MatSort) sort: MatSort = <MatSort>{};
 
   ngOnInit(): void {
     this.fetchData();
+  }
+
+  openDialog(action, obj) {
+    obj.action = action;
+    const dialogRef = this.dialog.open(CreateComponent, {
+      width: '640px',
+      disableClose: true,
+      data: obj,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.event == 'Add') {
+        this.addRowData(result.data);
+      } else if (result.event == 'Delete') {
+        this.deleteRecord(result.data);
+      }
+    });
   }
 
   fetchData() {
@@ -63,18 +71,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CreateComponent, {
-      width: '640px',
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      this.fetchData();
-    });
-  }
+  addRowData(row_obj) {}
 
-  deleteRecord(id: number) {
-    this.sleepService.deleteRecord(id).subscribe(() => {
+  deleteRecord(row_obj) {
+    this.sleepService.deleteRecord(row_obj.id).subscribe(() => {
       this.fetchData();
     });
     console.log('Record deleted successfully');

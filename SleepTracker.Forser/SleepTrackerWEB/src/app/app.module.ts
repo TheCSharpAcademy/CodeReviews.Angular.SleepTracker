@@ -27,9 +27,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CreateComponent } from './create/create.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
-  declarations: [AppComponent, CreateComponent],
+  declarations: [AppComponent, CreateComponent, EditComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

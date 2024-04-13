@@ -4,9 +4,10 @@ import {
   MatDialog,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { DatePipe } from '@angular/common';
 import { ISleep } from '../models/ISleep.model';
 import { ThemePalette } from '@angular/material/core';
+import { SleepRecord } from '../sleep-record.modal';
+import { SleepTypeConst } from '../models/SleepTypeConst';
 
 @Component({
   selector: 'app-create',
@@ -19,11 +20,17 @@ export class CreateComponent {
   public breakpoint!: number;
   public color: ThemePalette = 'primary';
   startOfSleep: any;
+  sleepTypes = SleepTypeConst;
+
+  sleepRecord: SleepRecord = {
+    startOfSleep: new Date(Date.now()),
+    endOfSleep: new Date(Date.now()),
+    typeOfSleep: SleepTypeConst.Sleep,
+  };
 
   constructor(
     public dialogRef: MatDialogRef<CreateComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: ISleep,
-    public datepipe: DatePipe
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: ISleep
   ) {
     console.log(data);
     this.local_data = { ...data };

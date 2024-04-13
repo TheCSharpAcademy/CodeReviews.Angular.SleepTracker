@@ -17,10 +17,12 @@
     "@angular/core": "^17.3.4",
     "@angular/forms": "^17.3.4",
     "@angular/material": "^17.3.4",
+    "@angular/material-moment-adapter": "^17.3.4",
     "@angular/platform-browser": "^17.3.4",
     "@angular/platform-browser-dynamic": "^17.3.4",
     "@angular/router": "^17.3.4",
     "@mat-datetimepicker/core": "^13.0.2",
+    "@mat-datetimepicker/moment": "^13.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.4"

@@ -1,7 +1,7 @@
 export class SleepRecord {
   constructor(
-    public startOfSleep: string,
-    public endOfSleep: string,
+    public startOfSleep: Date,
+    public endOfSleep: Date,
     public typeOfSleep: number
   ) {}
 }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NgIf, DatePipe } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,11 +17,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {
-  NgxMatDatetimePickerModule,
-  NgxMatTimepickerModule,
-  NgxMatNativeDateModule,
-} from '@angular-material-components/datetime-picker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -51,11 +46,8 @@ import { EditComponent } from './edit/edit.component';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
   ],
-  providers: [DatePipe, NgxMatNativeDateModule],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

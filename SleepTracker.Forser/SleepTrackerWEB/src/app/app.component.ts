@@ -1,82 +1,115 @@
-import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import {
+  MatTable,
+  MatTableDataSource,
+  MatTableModule,
+} from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
-
-import { SleepService } from './services/sleep.service';
-import { ISleep } from './models/ISleep.model';
-import { SleepTypeConst } from './models/SleepTypeConst';
-
-import { CreateComponent } from './create/create.component';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { SleepApiServiceService } from './services/sleep-api-service.service';
+import { SleepInterface } from './models/sleep-interface';
+import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrl: './app.component.scss',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    MatProgressSpinnerModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+  ],
 })
-export class AppComponent implements OnInit, AfterViewInit {
-  title = 'SleepTrackerWEB';
-  displayedColumns = [
+export class AppComponent implements OnInit {
+  displayedColumns: string[] = [
     'id',
     'startOfSleep',
     'endOfSleep',
     'typeOfSleep',
-    'lengthOfSleep',
     'action',
   ];
-  dataSource = new MatTableDataSource<ISleep>();
-  sleepRecords: ISleep[] = [];
-  resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-  SleepTypeEnum = SleepTypeConst;
-  sleepEnum = SleepTypeConst.Sleep;
+  resultsLength = 0;
+  dataSource!: MatTableDataSource<SleepInterface>;
+  records: any;
 
-  constructor(public sleepService: SleepService, public dialog: MatDialog) {}
+  constructor(
+    public sleepService: SleepApiServiceService,
+    public dialog: MatDialog
+  ) {}
 
-  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
-  @ViewChild(MatPaginator) paginator: MatPaginator = <MatPaginator>{};
-  @ViewChild(MatSort) sort: MatSort = <MatSort>{};
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatTable, { static: true })
+  table!: MatTable<any>;
 
   ngOnInit(): void {
     this.fetchData();
   }
 
-  openDialog(action, obj) {
-    obj.action = action;
-    const dialogRef = this.dialog.open(CreateComponent, {
-      width: '640px',
-      disableClose: true,
-      data: obj,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result.event == 'Add') {
-        this.addRowData(result.data);
-      } else if (result.event == 'Delete') {
-        this.deleteRecord(result.data);
-      }
-    });
-  }
-
   fetchData() {
     this.sleepService.getRecordsWithoutFilters().subscribe((res) => {
-      this.dataSource.data = res;
+      this.records = res;
+      this.dataSource = new MatTableDataSource<SleepInterface>(this.records);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
       this.isLoadingResults = false;
     });
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+  openDialog(action, obj) {
+    obj.action = action;
+    const dialogRef = this.dialog.open(DialogBoxComponent, {
+      width: '640px',
+      data: obj,
+      autoFocus: false,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.event == 'Delete') {
+        this.deleteRowData(result.data);
+      } else if (result.event == 'Add') {
+        this.addRecordData(result.data);
+      }
+    });
   }
 
-  addRowData(row_obj) {}
+  addRecordData(row_obj) {
+    this.saveRecord(row_obj);
+  }
 
-  deleteRecord(row_obj) {
-    this.sleepService.deleteRecord(row_obj.id).subscribe(() => {
+  deleteRowData(row_obj) {
+    this.dataSource = this.records.filter((value, key) => {
+      if (value.id == row_obj.id) {
+        this.deleteRecord(row_obj.id);
+      }
+    });
+  }
+
+  saveRecord(data: any) {
+    this.sleepService.addRecord(data).subscribe(() => {
       this.fetchData();
     });
-    console.log('Record deleted successfully');
+  }
+
+  deleteRecord(id: number) {
+    this.sleepService.deleteSleepRecord(id).subscribe(() => {
+      this.fetchData();
+    });
   }
 }

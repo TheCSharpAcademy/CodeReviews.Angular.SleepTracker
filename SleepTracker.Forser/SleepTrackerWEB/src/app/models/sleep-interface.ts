@@ -1,4 +1,4 @@
-export interface ISleep {
+export interface SleepInterface {
   id: number;
   startOfSleep: Date;
   endOfSleep: Date;

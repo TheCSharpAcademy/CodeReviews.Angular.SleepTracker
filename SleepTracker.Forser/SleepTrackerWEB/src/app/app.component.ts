@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SleepApiServiceService } from './services/sleep-api-service.service';
 import { SleepInterface } from './models/sleep-interface';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
+import { MinLengthValidator } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit {
     'startOfSleep',
     'endOfSleep',
     'typeOfSleep',
+    'lengthOfSleep',
     'action',
   ];
   isLoadingResults = true;
@@ -51,13 +53,18 @@ export class AppComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort = <MatSort>{};
   @ViewChild(MatTable, { static: true })
   table!: MatTable<any>;
 
   ngOnInit(): void {
     this.fetchData();
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   fetchData() {
@@ -87,6 +94,15 @@ export class AppComponent implements OnInit {
         this.fetchData();
       }
     });
+  }
+
+  calculateSleepLength(start: Date, end: Date) {
+    const duration = new Date(end).getTime() - new Date(start).getTime();
+    const hoursOfSleep = Math.floor(duration / (1000 * 60 * 60));
+    const minutesOfSleep = Math.floor(
+      (duration % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    return `${hoursOfSleep}:${minutesOfSleep < 10 ? '0' : ''}${minutesOfSleep}`;
   }
 
   addRecordData(row_obj) {

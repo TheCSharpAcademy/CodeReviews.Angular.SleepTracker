@@ -38,20 +38,39 @@
       matSortDirection="desc"
     >
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>Id.</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id.</th>
         <td mat-cell *matCellDef="let element">{{ element.id }}</td>
       </ng-container>
       <ng-container matColumnDef="startOfSleep">
-        <th mat-header-cell *matHeaderCellDef>Start of Sleep</th>
-        <td mat-cell *matCellDef="let element">{{ element.startOfSleep }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Start of Sleep
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.startOfSleep | date : "dd/MM/yy HH:mm" }}
+        </td>
       </ng-container>
       <ng-container matColumnDef="endOfSleep">
-        <th mat-header-cell *matHeaderCellDef>End of Sleep</th>
-        <td mat-cell *matCellDef="let element">{{ element.endOfSleep }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>End of Sleep</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.endOfSleep | date : "dd/MM/yy HH:mm" }}
+        </td>
       </ng-container>
       <ng-container matColumnDef="typeOfSleep">
-        <th mat-header-cell *matHeaderCellDef>Type of Sleep</th>
-        <td mat-cell *matCellDef="let element">{{ element.typeOfSleep }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type of Sleep</th>
+        <td mat-cell *matCellDef="let element">
+          <div [ngSwitch]="element.typeOfSleep">
+            <div *ngSwitchCase="1">Sleep</div>
+            <div *ngSwitchCase="2">Nap</div>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="lengthOfSleep">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Length of Sleep
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ calculateSleepLength(element.startOfSleep, element.endOfSleep) }}
+        </td>
       </ng-container>
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
@@ -68,7 +87,13 @@
       </ng-container>
       <tr
         mat-header-row
-        *matHeaderRowDef="['id', 'startOfSleep', 'endOfSleep', 'typeOfSleep']"
+        *matHeaderRowDef="[
+          'id',
+          'startOfSleep',
+          'endOfSleep',
+          'typeOfSleep',
+          'lengthOfSleep'
+        ]"
       ></tr>
       <tr mat-row *matRowDef="let element; columns: displayedColumns"></tr>
     </table>

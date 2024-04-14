@@ -20,6 +20,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { SleepInterface } from '../models/sleep-interface';
 import { SleepTypeConst } from '../models/SleepTypeConst';
@@ -50,6 +53,9 @@ import { SleepApiServiceService } from '../services/sleep-api-service.service';
     MatSelectModule,
     MatCardModule,
     MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatToolbarModule,
   ],
   providers: [
     {

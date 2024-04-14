@@ -1,14 +1,10 @@
-@use "sass:map";
 @use "@angular/material" as mat;
 
-@include mat.core();
-
-$my-primary: mat.define-palette(mat.$indigo-palette, 500);
-$my-accent: mat.define-palette(mat.$indigo-palette, A200, A100, A400);
-
+$my-primary: mat.define-palette(mat.$purple-palette, A100);
+$my-accent: mat.define-palette(mat.$green-palette, A200, A100, A400);
 $my-warn: mat.define-palette(mat.$red-palette);
 
-$my-theme: mat.define-light-theme(
+$my-theme: mat.define-dark-theme(
   (
     color: (
       primary: $my-primary,
@@ -21,8 +17,8 @@ $my-theme: mat.define-light-theme(
 );
 
 @include mat.core-theme($my-theme);
-
 @include mat.button-theme($my-theme);
+@include mat.all-component-themes($my-theme);
 
 html,
 body {
@@ -33,6 +29,36 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.mat-datepicker-content {
-  background-color: white;
+.example-spacer {
+  flex: 1 1 auto;
+}
+mat-form-field {
+  width: 100%;
+  margin: auto;
+}
+mat-button {
+  margin-right: 5px;
+}
+mat-hint {
+  margin: 5px;
+}
+.main-body {
+  max-width: 80%;
+  margin: 20px auto;
+}
+.action-icon:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.action-btn {
+  float: right;
+  margin-right: 10px;
+}
+.action-btn button {
+  padding: 20px;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }

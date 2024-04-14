@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SleepApiServiceService } from './services/sleep-api-service.service';
 import { SleepInterface } from './models/sleep-interface';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
-import { MinLengthValidator } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +31,7 @@ import { MinLengthValidator } from '@angular/forms';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatButtonModule,
   ],
 })
 export class AppComponent implements OnInit {

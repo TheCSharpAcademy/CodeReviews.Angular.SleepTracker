@@ -1,120 +1,134 @@
+<div mat-dialog-title>
+  <h2 *ngIf="action == 'Add'">Add new Sleep Record</h2>
+  <h2 *ngIf="action == 'Live'">Live Timer</h2>
+  <h2 *ngIf="action == 'Delete'">Delete record?</h2>
+</div>
 <form [formGroup]="createForm">
-  <mat-form-field *ngIf="action == 'Add'" [hideRequiredMarker]="true">
-    <div class="add-title">
-      <h2 class="primary">Add Sleep Record</h2>
+  <div mat-dialog-content class="content" *ngIf="action == 'Add'">
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Start of Sleep</mat-label>
+        <mat-datetimepicker-toggle
+          [for]="startDateTimePicker"
+          matSuffix
+        ></mat-datetimepicker-toggle>
+        <mat-datetimepicker
+          #startDateTimePicker
+          type="datetime"
+          [openOnFocus]="false"
+          [timeInterval]="5"
+        ></mat-datetimepicker>
+        <input
+          matInput
+          placeholder="Choose a date"
+          formControlName="startOfSleep"
+          [matDatetimepicker]="startDateTimePicker"
+          required
+          [autocomplete]="false"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>End of Sleep</mat-label>
+        <mat-datetimepicker-toggle
+          [for]="endDateTimePicker"
+          matSuffix
+        ></mat-datetimepicker-toggle>
+        <mat-datetimepicker
+          #endDateTimePicker
+          type="datetime"
+          [openOnFocus]="false"
+          [timeInterval]="5"
+        ></mat-datetimepicker>
+        <input
+          matInput
+          placeholder="Choose a date"
+          formControlName="endOfSleep"
+          [matDatetimepicker]="endDateTimePicker"
+          required
+          [autocomplete]="false"
+        />
+      </mat-form-field>
     </div>
-    <mat-grid-list cols="2" rowHeight="85px" [cols]="breakpoint">
-      <mat-grid-tile>
-        <div class="text-inside">
-          <mat-form-field>
-            <mat-label>Start of Sleep</mat-label>
-            <mat-datetimepicker-toggle
-              [for]="startDateTimePicker"
-              matSuffix
-            ></mat-datetimepicker-toggle>
-            <mat-datetimepicker
-              #startDateTimePicker
-              type="datetime"
-              [openOnFocus]="false"
-              [timeInterval]="5"
-            ></mat-datetimepicker>
-            <input
-              matInput
-              placeholder="Choose a date"
-              formControlName="startOfSleep"
-              [matDatetimepicker]="startDateTimePicker"
-              required
-              [autocomplete]="false"
-            />
-          </mat-form-field>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <div class="text-inside">
-          <mat-form-field>
-            <mat-label>End of Sleep</mat-label>
-            <mat-datetimepicker-toggle
-              [for]="endDateTimePicker"
-              matSuffix
-            ></mat-datetimepicker-toggle>
-            <mat-datetimepicker
-              #endDateTimePicker
-              type="datetime"
-              [openOnFocus]="false"
-              [timeInterval]="5"
-            ></mat-datetimepicker>
-            <input
-              matInput
-              placeholder="Choose a date"
-              formControlName="endOfSleep"
-              [matDatetimepicker]="endDateTimePicker"
-              required
-              [autocomplete]="false"
-            />
-          </mat-form-field>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <div class="text-inside">
-          <mat-form-field>
-            <mat-label>Select Type of Sleep</mat-label>
-            <mat-select formControlName="selectedSleepType">
-              <mat-option *ngFor="let item of keys" [value]="item.value">
-                {{ item.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </mat-grid-tile>
-    </mat-grid-list>
-    <mat-error *ngIf="invalidInput">
-      {{ errorResponse }}
-    </mat-error>
-  </mat-form-field>
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Select Type of Sleep</mat-label>
+        <mat-select formControlName="selectedSleepType">
+          <mat-option *ngFor="let item of keys" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="invalidInput">
+        {{ errorResponse }}
+      </mat-error>
+    </div>
+  </div>
 </form>
-<div
-  class="add-title"
-  style="background-color: white"
-  *ngIf="action == 'Delete'"
->
-  Are you sure you want to delete sleep record - <b>{{ local_data.id }}</b
-  >?
+<div *ngIf="action == 'Delete'">
+  <div mat-dialog-content class="content">
+    <h2>
+      Are you sure you want to delete sleep record -
+      <b>{{ local_data.id }}</b> ?
+    </h2>
+  </div>
 </div>
-<div *ngIf="action == 'Live'" class="add-title" style="background-color: white">
-  <mat-card>
-    <mat-card-content>
-      <div style="text-align: center">
-        Live Timer:
-        <h2>{{ displayTimer }}</h2>
-        <button
-          mat-icon-button
-          aria-label="Start Timer"
-          color="primary"
-          matTooltip="Press to start timer"
-          (click)="startTimer()"
-          [disabled]="timerStarted"
-        >
-          <mat-icon> play_arrow </mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          aria-label="Stop Timer and save record"
-          color="warm"
-          matTooltip="Press to stop timer and save record"
-          (click)="stopTimer()"
-          [disabled]="!timerStarted"
-        >
-          <mat-icon>stop</mat-icon>
-        </button>
-      </div>
-    </mat-card-content>
-  </mat-card>
+<div *ngIf="action == 'Live'">
+  <mat-card-content class="content">
+    <div style="text-align: center">
+      Live Timer:
+      <h2>{{ displayTimer }}</h2>
+      <button
+        mat-icon-button
+        aria-label="Start Timer"
+        color="primary"
+        matTooltip="Press to start timer"
+        (click)="startTimer()"
+        [disabled]="timerStarted"
+      >
+        <mat-icon> play_arrow </mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        aria-label="Stop Timer and save record"
+        color="warm"
+        matTooltip="Press to stop timer and save record"
+        (click)="stopTimer()"
+        [disabled]="!timerStarted"
+      >
+        <mat-icon>stop</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
 </div>
-<div mat-dialog-action>
-  <button mat-button (click)="doAction()" *ngIf="action != 'Live'">
-    {{ action }}
-  </button>
-  <button mat-button (click)="closeDialog()" mat-flat-button color="warm">
-    Close
-  </button>
-</div>
+<mat-toolbar>
+  <div mat-dialog-action class="action-btns">
+    <button
+      mat-button-raised
+      mat-flat-button
+      (click)="doAction()"
+      *ngIf="action == 'Delete'"
+      style="margin-right: 10px"
+      color="warn"
+    >
+      {{ action }}
+    </button>
+    <button
+      mat-raised-button
+      mat-flat-button
+      (click)="doAction()"
+      *ngIf="action == 'Add'"
+      style="margin-right: 10px"
+      color="primary"
+    >
+      {{ action }}
+    </button>
+    <button
+      mat-button-raised
+      (click)="closeDialog()"
+      mat-flat-button
+      color="primary"
+    >
+      Close
+    </button>
+  </div>
+</mat-toolbar>

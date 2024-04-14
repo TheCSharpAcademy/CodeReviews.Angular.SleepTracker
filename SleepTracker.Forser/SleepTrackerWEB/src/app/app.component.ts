@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import {
   MatTable,
   MatTableDataSource,
@@ -8,9 +7,8 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -85,6 +83,8 @@ export class AppComponent implements OnInit {
         this.deleteRowData(result.data);
       } else if (result.event == 'Add') {
         this.addRecordData(result.data);
+      } else if (result.event == 'Live') {
+        this.fetchData();
       }
     });
   }

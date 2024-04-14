@@ -3,5 +3,4 @@ export interface SleepInterface {
   startOfSleep: Date;
   endOfSleep: Date;
   typeOfSleep: number;
-  lengthOfSleep: number;
 }

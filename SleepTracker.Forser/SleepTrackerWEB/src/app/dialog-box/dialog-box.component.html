@@ -1,8 +1,5 @@
 <form [formGroup]="createForm">
-  <mat-form-field
-    *ngIf="action != 'Delete'; else elseTemplate"
-    [hideRequiredMarker]="true"
-  >
+  <mat-form-field *ngIf="action == 'Add'" [hideRequiredMarker]="true">
     <div class="add-title">
       <h2 class="primary">Add Sleep Record</h2>
     </div>
@@ -75,13 +72,49 @@
     </mat-error>
   </mat-form-field>
 </form>
-<ng-template #elseTemplate>
+<div
+  class="add-title"
+  style="background-color: white"
+  *ngIf="action == 'Delete'"
+>
   Are you sure you want to delete sleep record - <b>{{ local_data.id }}</b
   >?
-</ng-template>
+</div>
+<div *ngIf="action == 'Live'" class="add-title" style="background-color: white">
+  <mat-card>
+    <mat-card-content>
+      <div style="text-align: center">
+        Live Timer:
+        <h2>{{ displayTimer }}</h2>
+        <button
+          mat-icon-button
+          aria-label="Start Timer"
+          color="primary"
+          matTooltip="Press to start timer"
+          (click)="startTimer()"
+          [disabled]="timerStarted"
+        >
+          <mat-icon> play_arrow </mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          aria-label="Stop Timer and save record"
+          color="warm"
+          matTooltip="Press to stop timer and save record"
+          (click)="stopTimer()"
+          [disabled]="!timerStarted"
+        >
+          <mat-icon>stop</mat-icon>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
 <div mat-dialog-action>
-  <button mat-button (click)="doAction()">{{ action }}</button>
+  <button mat-button (click)="doAction()" *ngIf="action != 'Live'">
+    {{ action }}
+  </button>
   <button mat-button (click)="closeDialog()" mat-flat-button color="warm">
-    Cancel
+    Close
   </button>
 </div>

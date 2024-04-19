@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { SleepModelForm } from '../../Model/SleepModelForm';
 import moment from 'moment';
 import { SleepModel } from '../../Model/SleepModel';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-record-add',
   standalone: true,
-  imports: [MatFormFieldModule, FormsModule],
+  imports: [MatFormFieldModule, FormsModule, MatInputModule],
   templateUrl: './record-add.component.html',
   styleUrl: './record-add.component.css'
 })

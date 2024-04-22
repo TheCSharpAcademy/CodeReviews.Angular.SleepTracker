@@ -1,0 +1,42 @@
+.mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .mat-mdc-row:hover .mat-mdc-cell {
+    border-color: currentColor;
+  }
+
+  .demo-row-is-clicked {
+    font-weight: bold;
+  }
+
+  html, body {
+    height: 100%;
+}
+
+  button {
+    margin: 1px;
+  }
+
+.mainView {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+
+
+}
+
+.dateFilterTimer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+
+}
+
+.recordTable {
+  margin-top: 20px;
+  width: 90%;
+}

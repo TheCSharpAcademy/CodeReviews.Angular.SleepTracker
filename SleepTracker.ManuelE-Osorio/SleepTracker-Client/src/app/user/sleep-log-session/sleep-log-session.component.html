@@ -1,0 +1,27 @@
+<mat-card>
+    <mat-card-content class="card-content">
+
+        <h4 class="full-width">Sleep Log Session</h4>
+
+        <div class="full-width">
+
+            <button mat-icon-button *ngIf="!isRunning" (click)="start()">
+                <mat-icon fontIcon="play_arrow">play_arrow</mat-icon>
+            </button>
+
+            <button mat-icon-button *ngIf="isRunning" (click)="stop()">
+                <mat-icon fontIcon="stop">stop</mat-icon>
+            </button>
+
+            <button mat-icon-button *ngIf="isSaveable && !isRunning" (click)="save()" >
+                <mat-icon fontIcon="save">save</mat-icon>
+            </button>
+            
+        </div>
+
+        <h5 class="full-width" *ngIf="elapsedTime.length > 0">{{elapsedTime}}</h5>
+
+    </mat-card-content>    
+</mat-card>
+
+

@@ -1,0 +1,32 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+.container {
+  display: flex;
+  width: 99.9%;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+
+.divider {
+  height:100%;
+  margin: 20px;
+}
+
+.full-width {
+  width: 95%;
+  margin: 8px 8px 8px 0px;
+}
+  

@@ -1,0 +1,6 @@
+@SleepTrackerAPI_HostAddress = http://localhost:5033
+
+GET {{SleepTrackerAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

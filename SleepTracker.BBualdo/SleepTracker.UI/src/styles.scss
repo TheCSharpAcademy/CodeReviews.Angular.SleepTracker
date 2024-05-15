@@ -1,5 +1,24 @@
 @import "./variables.scss";
 
+// Mobile
+@media (max-width: 620px) {
+  .btn {
+    font-size: 1rem;
+    height: 52px;
+    padding: 12px;
+  }
+}
+
+// Desktop
+@media (min-width: 621px) {
+  .btn {
+    font-size: 1.25rem;
+    height: 52px;
+    padding: 12px 20px;
+    width: 200px;
+  }
+}
+
 * {
   box-sizing: border-box;
   color: white;
@@ -24,7 +43,6 @@ body {
 
 main {
   height: 100%;
-  padding: 24px;
 }
 
 ::-webkit-scrollbar {
@@ -50,15 +68,11 @@ main {
   border-radius: 20px;
   cursor: pointer;
   display: flex;
-  font-size: 1.25rem;
   font-weight: bold;
-  height: 52px;
   justify-content: center;
-  padding: 12px 20px;
   text-decoration: none;
   text-transform: uppercase;
   transition: all 0.2s ease-in-out;
-  width: 200px;
 }
 
 .primary__btn {

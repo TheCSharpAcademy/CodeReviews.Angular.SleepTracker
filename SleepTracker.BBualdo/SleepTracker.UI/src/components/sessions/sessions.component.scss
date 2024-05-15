@@ -1,5 +1,85 @@
 @import "../../variables.scss";
 
+// Mobile
+@media (max-width: 620px) {
+  .sessions__container {
+    padding-top: 240px;
+  }
+
+  input {
+    height: 52px;
+    width: 160px;
+  }
+
+  .session {
+    font-size: 0.7rem;
+  }
+
+  .sessions__header {
+    font-size: 0.7rem;
+  }
+
+  .sessions__header,
+  .session {
+    column-gap: 4px;
+    grid-template-columns: 20px repeat(3, 1fr) 50px;
+    padding: 12px;
+  }
+
+  .sessions__paginator {
+    justify-content: center;
+    padding: 8px 20px;
+  }
+
+  .buttons {
+    button {
+      mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
+
+// Desktop
+@media (min-width: 621px) {
+  input {
+    height: 52px;
+    width: 200px;
+  }
+
+  .session {
+    font-size: 1.25rem;
+  }
+
+  .sessions__header {
+    font-size: 1rem;
+  }
+
+  .sessions__header,
+  .session {
+    column-gap: 24px;
+    grid-template-columns: 40px repeat(3, 1fr) 80px;
+    padding: 12px 24px;
+  }
+
+  .sessions__paginator {
+    justify-content: end;
+    padding: 20px;
+  }
+
+  .buttons {
+    button {
+      mat-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}
+
 .sessions__container {
   align-items: center;
   display: flex;
@@ -34,10 +114,8 @@
       color: white;
       cursor: pointer;
       font-size: 1rem;
-      height: 52px;
       outline: none;
       padding: 12px 20px;
-      width: 200px;
     }
     ::-webkit-calendar-picker-indicator {
       display: none;
@@ -45,10 +123,7 @@
 
     .sessions__header,
     .session {
-      column-gap: 24px;
       display: grid;
-      grid-template-columns: 40px repeat(3, 1fr) 80px;
-      padding: 12px 24px;
 
       span:last-child {
         text-align: center;
@@ -57,7 +132,6 @@
 
     .sessions__header {
       align-items: center;
-      font-size: 1rem;
       font-weight: bold;
     }
 
@@ -69,7 +143,6 @@
     .session {
       background-color: $neonPinkGlass;
       border: 4px solid $neonPinkGlass;
-      font-size: 1.25rem;
 
       .buttons {
         align-items: center;
@@ -111,9 +184,7 @@
     .sessions__paginator {
       align-items: center;
       display: flex;
-      justify-content: end;
       gap: 20px;
-      padding: 20px;
 
       p {
         margin-bottom: 0;

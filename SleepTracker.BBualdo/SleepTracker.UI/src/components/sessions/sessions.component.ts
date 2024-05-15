@@ -28,13 +28,11 @@ import { DataService } from '../../services/data.service';
   ],
 })
 export class SessionsComponent implements OnInit {
-  sessions$: Observable<SleepSession[]> = this.dataService.sessions$;
-
   constructor(
     private sleepSessionsService: SleepSessionsService,
     private dialogService: DialogService,
     public paginationService: PaginationService,
-    private dataService: DataService,
+    public dataService: DataService,
   ) {}
 
   ngOnInit(): void {

@@ -1,7 +1,7 @@
 <back-button></back-button>
 <div class="sessions__container">
   <h1>Sessions</h1>
-  @if (sessions$ | async; as sessions) {
+  @if (this.dataService.sessions$ | async; as sessions) {
     <div class="sessions__box">
       <div class="sessions__panel">
         <input

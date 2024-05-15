@@ -1,0 +1,27 @@
+@import "../../variables.scss";
+
+a {
+  display: inline-block;
+  left: 24px;
+  position: fixed;
+  top: 24px;
+  text-decoration: none;
+
+  mat-icon {
+    align-items: center;
+    background-color: $neonPink;
+    border-radius: 20px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    font-size: 32px;
+    height: 48px;
+    transition: all 0.2s;
+    width: 48px;
+
+    &:hover {
+      background-color: $neonPinkGlass;
+      color: $neonPink;
+    }
+  }
+}

@@ -1,0 +1,100 @@
+<back-button></back-button>
+<div class="sessions__container">
+  <h1>Sessions</h1>
+  @if (sessions$ | async; as sessions) {
+    <div class="sessions__box">
+      <div class="sessions__panel">
+        <input
+          type="text"
+          placeholder="Search by Date"
+          onfocus="this.type='date'; this.showPicker()"
+          onchange="this.blur()"
+          onblur="this.type='text'"
+          #search
+          (change)="filterByDate(search.value)"
+        />
+        <button
+          class="btn primary__btn"
+          (click)="openFormDialog('add', 'Add Session')"
+        >
+          Add Session
+        </button>
+      </div>
+      <div class="sessions__header">
+        <span>No.</span>
+        <span>Start Time</span>
+        <span>End Time</span>
+        <span>Duration</span>
+        <span><mat-icon fontIcon="more_vert"></mat-icon></span>
+      </div>
+
+      <div class="sessions">
+        @if (sessions.length > 0) {
+          @for (
+            session of this.paginationService.paginatedSessions;
+            track $index
+          ) {
+            <div class="session">
+              <span>{{
+                $index +
+                  1 +
+                  this.paginationService.pageSize *
+                    (this.paginationService.currentPage - 1)
+              }}</span>
+              <span>{{
+                formatDate(session.startTime, "dd.MM.yyyy HH:mm", "en-US")
+              }}</span>
+              <span>{{
+                formatDate(session.endTime, "dd.MM.yyyy HH:mm", "en-US")
+              }}</span>
+              <span>{{ getDuration(session.durationInMinutes) }}</span>
+              <div class="buttons">
+                <button
+                  class="edit__btn"
+                  (click)="openFormDialog('update', 'Update Session', session)"
+                >
+                  <mat-icon fontIcon="edit"></mat-icon>
+                </button>
+                <button class="delete__btn" (click)="confirmDelete(session)">
+                  <mat-icon fontIcon="delete"></mat-icon>
+                </button>
+              </div>
+            </div>
+          }
+        } @else {
+          <p class="no-sessions">No sessions yet.</p>
+        }
+      </div>
+      <div
+        class="sessions__paginator"
+        [ngClass]="{
+          hidden: this.paginationService.paginatedSessions.length == 0
+        }"
+      >
+        <button
+          [disabled]="this.paginationService.currentPage === 1"
+          (click)="this.paginationService.previousPage()"
+        >
+          <mat-icon fontIcon="chevron_left"></mat-icon>
+        </button>
+        <p>
+          Page {{ this.paginationService.currentPage }} of
+          {{ this.paginationService.pagesAmount }}
+        </p>
+        <button
+          [disabled]="
+            this.paginationService.currentPage ===
+            this.paginationService.pagesAmount
+          "
+          (click)="this.paginationService.nextPage()"
+        >
+          <mat-icon fontIcon="chevron_right"></mat-icon>
+        </button>
+      </div>
+    </div>
+  } @else {
+    <div class="spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
+</div>

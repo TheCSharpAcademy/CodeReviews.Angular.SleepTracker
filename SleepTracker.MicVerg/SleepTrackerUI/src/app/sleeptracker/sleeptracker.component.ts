@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
 import { SleeptrackerService } from '../sleeptracker.service';
 import { Sleep } from '../sleep.model';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-sleeptracker',
   standalone: true,
-  imports: [MatSlideToggleModule],
+  imports: [MatTableModule, MatPaginatorModule],
   templateUrl: './sleeptracker.component.html',
   styleUrl: './sleeptracker.component.css'
 })
@@ -14,6 +15,7 @@ export class SleeptrackerComponent implements OnInit {
   constructor(private sleepService: SleeptrackerService){}
   apiUrl: string = 'https://localhost:7240/api/sleeps/';
   sleepData: Sleep[] = [];
+  columnsToDisplay = ['id','startTime','endTime'];
 
   ngOnInit(): void {
     this.sleepService.getSleepRecords().subscribe((data: Sleep[]) => {
@@ -22,6 +24,7 @@ export class SleeptrackerComponent implements OnInit {
   }
 
   getSleeps(){
-    this.sleepService.getSleepRecords();
+    this.sleepService.getSleepRecords()
+      .subscribe(sleepData => this.sleepData = sleepData);
   }
 }

@@ -1,4 +1,21 @@
-<h1>Sleep tracker</h1>
+
+
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+    <h1 style="margin-left: 10px;">Sleep tracker</h1>
+    <div>
+        <h1 style="margin-left: 10px;">Filter date:</h1>
+        <mat-form-field style="margin-right: 20px;">
+            <mat-label>Filter me!</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" (dateInput)="filterSleep($event)" (dateChange)="filterSleep($event)">
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker-toggle matSuffix (click)="clearDateFilter()">
+                <mat-icon matDatepickerToggleIcon>X</mat-icon>
+              </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+</div>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
@@ -8,12 +25,12 @@
 
     <ng-container matColumnDef="startTime">
         <th mat-header-cell *matHeaderCellDef>Start time</th>
-        <td mat-cell *matCellDef="let sleep">{{sleep.startTime | date:'dd-MM-yyyy hh:mm'}}</td>
+        <td mat-cell *matCellDef="let sleep">{{sleep.startTime | date:'dd/MM/yyyy hh:mm'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="endTime">
         <th mat-header-cell *matHeaderCellDef>Stop time</th>
-        <td mat-cell *matCellDef="let sleep">{{sleep.endTime | date:'dd-MM-yyyy hh:mm'}}</td>
+        <td mat-cell *matCellDef="let sleep">{{sleep.endTime | date:'dd/MM/yyyy hh:mm'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="duration">

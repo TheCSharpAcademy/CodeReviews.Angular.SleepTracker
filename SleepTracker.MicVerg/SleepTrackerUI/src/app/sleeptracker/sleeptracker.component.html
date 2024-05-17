@@ -1,7 +1,32 @@
-
-
 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
     <h1 style="margin-left: 10px;">Sleep tracker</h1>
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="addSleepForm" (submit)=" addThroughSleepForm()">
+                <div>
+                    <h1>Add sleep time</h1>
+                    
+                    <mat-form-field>
+                        <mat-label>Start DateTime</mat-label>
+                        <mat-datetimepicker-toggle [for]="addStartPicker" matSuffix></mat-datetimepicker-toggle>
+                        <mat-datetimepicker #addStartPicker type="datetime" [openOnFocus]="true" [timeInterval]="5"></mat-datetimepicker>
+                        <input matInput placeholder="start sleep" formControlName="startDateTime" [matDatetimepicker]="addStartPicker" required autocomplete="false" />
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>End DateTime</mat-label>
+                        <mat-datetimepicker-toggle [for]="endStartPicker" matSuffix></mat-datetimepicker-toggle>
+                        <mat-datetimepicker #endStartPicker type="datetime" [openOnFocus]="true" [timeInterval]="5"></mat-datetimepicker>
+                        <input matInput placeholder="end sleep" formControlName="endDateTime" [matDatetimepicker]="endStartPicker" required autocomplete="false" />
+                    </mat-form-field>
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center; margin-top:10px;">
+                    <button mat-raised-button>Add</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
     <div>
         <h1 style="margin-left: 10px;">Filter date:</h1>
         <mat-form-field style="margin-right: 20px;">

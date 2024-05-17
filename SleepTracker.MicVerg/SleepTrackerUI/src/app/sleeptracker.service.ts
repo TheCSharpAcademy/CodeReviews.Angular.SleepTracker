@@ -19,4 +19,18 @@ export class SleeptrackerService {
   getSleepRecords(): Observable<Sleep[]>{
     return this.http.get<Sleep[]>(this.apiUrl);
   }
+
+  postSleepRecord(sleep: Sleep): Observable<Sleep>{
+    return this.http.post<Sleep>(this.apiUrl, sleep, this.httpOptions)
+    .pipe(
+      catchError(this.handleError<Sleep>('postSleepRecord')));
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      console.error('Error response:', error.error);
+      return of(result as T);
+    };
+  }
 }

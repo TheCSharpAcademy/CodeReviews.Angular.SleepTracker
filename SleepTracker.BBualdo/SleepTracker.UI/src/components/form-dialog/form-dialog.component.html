@@ -1,0 +1,56 @@
+<div class="form__container">
+  <div class="form__header">
+    <h2>{{ title }}</h2>
+    <button (click)="closeDialog()">
+      <mat-icon fontIcon="close"></mat-icon>
+    </button>
+  </div>
+
+  <form (ngSubmit)="submit()" [formGroup]="formGroup">
+    <div class="form__field">
+      <label>Start Time</label>
+      <input
+        type="text"
+        placeholder="Enter Date"
+        onfocus="this.type='datetime-local'; this.showPicker()"
+        formControlName="startTime"
+        [max]="today || formGroup.controls['endTime'].value"
+        [ngClass]="{
+          invalid:
+            formGroup.controls['startTime'].touched &&
+            formGroup.controls['startTime'].errors
+        }"
+      />
+      @if (
+        formGroup.controls["startTime"].touched &&
+        formGroup.controls["startTime"].errors?.["required"]
+      ) {
+        <p class="text-danger">Required Field</p>
+      }
+    </div>
+
+    <div class="form__field">
+      <label>End Time</label>
+      <input
+        type="text"
+        placeholder="Enter Date"
+        onfocus="this.type='datetime-local'; this.showPicker()"
+        formControlName="endTime"
+        [min]="formGroup.controls['startTime'].value"
+        [max]="today"
+        [ngClass]="{
+          invalid:
+            formGroup.controls['endTime'].touched &&
+            formGroup.controls['endTime'].errors
+        }"
+      />
+      @if (
+        formGroup.controls["endTime"].touched &&
+        formGroup.controls["endTime"].errors?.["required"]
+      ) {
+        <p class="text-danger">Required Field</p>
+      }
+    </div>
+    <button class="btn primary__btn">{{ buttonText }}</button>
+  </form>
+</div>

@@ -1,0 +1,64 @@
+<back-button></back-button>
+<div class="timer__container">
+  <h1>Sweet Dreams</h1>
+  <div class="tips">
+    @if (this.status === "idle") {
+      <p>Press <span>Play</span> to Start</p>
+    }
+    @if (this.status === "paused") {
+      <p>Press <span>Play</span> to Continue</p>
+    }
+    @if (this.status === "running") {
+      <p>Press <span>Pause</span> to Pause</p>
+    }
+    @if (this.status === "running" || this.status === "paused") {
+      <p>Press <span>Stop</span> to Reset</p>
+    }
+    @if (this.status === "paused" && this.secondsCount > 0) {
+      <p>Press <span>Save</span> to Save Session</p>
+    }
+  </div>
+
+  <p class="timer">{{ formatSeconds() }}</p>
+  <div class="buttons">
+    <button
+      (click)="start()"
+      [ngClass]="{ disappeared: this.status === 'running' }"
+      matTooltip="Play"
+      matTooltipPosition="below"
+    >
+      <mat-icon fontIcon="play_arrow"></mat-icon>
+    </button>
+    <button
+      (click)="pause()"
+      [ngClass]="{
+        disappeared: this.status === 'idle' || this.status === 'paused'
+      }"
+      matTooltip="Pause"
+      matTooltipPosition="below"
+    >
+      <mat-icon fontIcon="pause"></mat-icon>
+    </button>
+    <button
+      (click)="stop()"
+      [ngClass]="{ disappeared: this.status === 'idle' }"
+      matTooltip="Stop"
+      matTooltipPosition="below"
+    >
+      <mat-icon fontIcon="stop"></mat-icon>
+    </button>
+    <button
+      (click)="save()"
+      matTooltip="Save"
+      [ngClass]="{
+        disappeared:
+          this.status === 'running' ||
+          this.status === 'idle' ||
+          this.secondsCount === 0
+      }"
+      matTooltipPosition="below"
+    >
+      <mat-icon fontIcon="save"></mat-icon>
+    </button>
+  </div>
+</div>

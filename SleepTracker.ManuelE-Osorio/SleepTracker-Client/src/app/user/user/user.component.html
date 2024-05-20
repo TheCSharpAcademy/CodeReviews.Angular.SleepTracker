@@ -1,0 +1,19 @@
+<mat-grid-list cols="6"  rowHeight="3:1" class="container">
+    
+  <mat-grid-tile [colspan]="5" [rowspan]="6">
+    <app-sleep-logs-list></app-sleep-logs-list>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="3" >
+    <mat-divider [vertical]="true" class="divider"></mat-divider>
+    <app-sleep-log-session class="full-width" ></app-sleep-log-session>      
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="3" class="full-width">
+    <mat-divider [vertical]="true" class="divider"></mat-divider>
+    <app-notifications class="full-width" ></app-notifications>
+  </mat-grid-tile>
+
+
+
+</mat-grid-list>

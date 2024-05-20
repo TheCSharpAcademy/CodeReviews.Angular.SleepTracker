@@ -1,0 +1,61 @@
+
+<main class="main">
+
+  <header>
+    <mat-toolbar color="primary">
+      <a class="bar-item" target="_blank" href="https://www.thecsharpacademy.com">
+        <img src="assets/logo.png" alt="TheCSharpAcademy" width="60" height="60">
+      </a>
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span> Sleep Tracker</span>
+      <span class="example-spacer"></span>
+
+      <app-authorization></app-authorization>
+
+      <a mat-icon-button target="_blank" href="https://github.com/ManuelE-Osorio">
+        <mat-icon svgIcon="github" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+      </a>
+      <a mat-icon-button target="_blank" href="https://linkedin.com/in/manuel-osorio-0504a5222/">
+        <mat-icon svgIcon="linkedin" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+      </a>
+
+    </mat-toolbar>
+  </header>
+
+  <body>
+
+    <mat-sidenav-container class="example-container" [hasBackdrop]="true">
+
+      <mat-sidenav-content>
+
+      
+        <router-outlet></router-outlet>
+
+      </mat-sidenav-content>
+
+      <mat-sidenav #drawer class="example-sidenav" mode="side">
+        <button routerLink="user" (click)="drawer.close()" mat-flat-button color="primary" class="full-width">
+          User
+        </button>
+        <button *ngIf="isAdmin" routerLink="admin" (click)="drawer.close()" mat-flat-button color="primary" class="full-width">
+          Admin
+        </button>
+      </mat-sidenav>
+
+    </mat-sidenav-container>
+
+  </body>
+
+  <footer>
+    <mat-toolbar class="footer">
+      <p>
+        Created by <a href="https://github.com/ManuelE-Osorio">ManuelE-Osorio</a> as a proyect of <a href="https://www.thecsharpacademy.com">The CSharp Academy</a>
+      </p>
+
+    </mat-toolbar>
+  </footer>
+
+</main>
+

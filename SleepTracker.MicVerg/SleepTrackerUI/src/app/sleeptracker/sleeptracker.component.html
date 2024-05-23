@@ -1,11 +1,9 @@
 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-    <h1 style="margin-left: 10px;">Sleep tracker</h1>
-    <mat-card>
+    <mat-card style="margin-left: 50px;">
         <mat-card-content>
             <form [formGroup]="addSleepForm" (submit)=" addThroughSleepForm()">
                 <div>
                     <h1>Add sleep time</h1>
-                    
                     <mat-form-field>
                         <mat-label>Start DateTime</mat-label>
                         <mat-datetimepicker-toggle [for]="addStartPicker" matSuffix></mat-datetimepicker-toggle>
@@ -27,9 +25,18 @@
             </form>
         </mat-card-content>
     </mat-card>
+    <mat-card>
+        <mat-card-content style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <h1>Start-stop</h1>
+            <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
+                <button mat-flat-button color="primary" (click)="startButton()">Start</button>
+                <button mat-flat-button color="warn" (click)="stopButton()">Stop</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
     <div>
         <h1 style="margin-left: 10px;">Filter date:</h1>
-        <mat-form-field style="margin-right: 20px;">
+        <mat-form-field style="margin-right: 50px;">
             <mat-label>Filter me!</mat-label>
             <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" (dateInput)="filterSleep($event)" (dateChange)="filterSleep($event)">
             <mat-hint>DD/MM/YYYY</mat-hint>

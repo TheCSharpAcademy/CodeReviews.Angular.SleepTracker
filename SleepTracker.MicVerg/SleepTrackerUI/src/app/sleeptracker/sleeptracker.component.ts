@@ -35,6 +35,8 @@ export class SleeptrackerComponent{
   sleepData: Sleep[] = [];
   events: string[] = [];
   selectedDate: string = "";
+  btnStartDate: Date = new Date(Date.now());
+  btnStopDate: Date = new Date(Date.now());
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   sleepRecord: Sleep= {
@@ -95,7 +97,20 @@ export class SleeptrackerComponent{
 
     this.sleepService.postSleepRecord(this.sleepRecord)
       .subscribe();
-      location.reload();
-    console.log(this.sleepRecord.startTime, this.sleepRecord.endTime);
+    location.reload();
+  }
+
+  startButton(){
+    this.btnStartDate = new Date(Date.now());
+  }
+
+  stopButton(){
+    this.sleepRecord.startTime = this.btnStartDate;
+    this.btnStopDate = new Date(Date.now());
+    this.sleepRecord.endTime = this.btnStopDate;
+
+    this.sleepService.postSleepRecord(this.sleepRecord)
+      .subscribe();
+    location.reload();
   }
 }

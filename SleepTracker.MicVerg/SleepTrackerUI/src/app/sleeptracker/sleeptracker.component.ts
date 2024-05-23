@@ -35,10 +35,6 @@ export class SleeptrackerComponent{
   sleepData: Sleep[] = [];
   events: string[] = [];
   selectedDate: string = "";
-  formStartDate: string = "";
-  formEndDate: string = "";
-  formStartTime: string = "";
-  formEndTime: string = "";
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   sleepRecord: Sleep= {
@@ -86,8 +82,20 @@ export class SleeptrackerComponent{
   }
 
   addThroughSleepForm(){
-    this.sleepRecord.startTime = new Date(this.addSleepForm.get('startDateTime')!.value || '');
-    this.sleepRecord.endTime = new Date(this.addSleepForm.get('endDateTime')!.value || '');
+    //added +2 for timezone fix
+    const dateStartTimeValue = this.addSleepForm.get('startDateTime')?.value || '';
+    const adjustedStartDate = new Date(dateStartTimeValue);
+    adjustedStartDate.setHours(adjustedStartDate.getHours() + 2); 
+    this.sleepRecord.startTime = adjustedStartDate;
+
+    const dateEndTimeValue = this.addSleepForm.get('endDateTime')?.value || '';
+    const adjustedEndDate = new Date(dateEndTimeValue);
+    adjustedEndDate.setHours(adjustedEndDate.getHours() + 2); 
+    this.sleepRecord.endTime = adjustedEndDate;
+
+    this.sleepService.postSleepRecord(this.sleepRecord)
+      .subscribe();
+      location.reload();
     console.log(this.sleepRecord.startTime, this.sleepRecord.endTime);
   }
 }

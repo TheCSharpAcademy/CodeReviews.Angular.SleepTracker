@@ -17,6 +17,7 @@ import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatetimepickerModule } from '@mat-datetimepicker/core';
 import { MatNativeDatetimeModule } from "@mat-datetimepicker/core";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sleeptracker',
@@ -37,6 +38,7 @@ export class SleeptrackerComponent{
   selectedDate: string = "";
   btnStartDate: Date = new Date(Date.now());
   btnStopDate: Date = new Date(Date.now());
+  btnTimerIsRunning: Boolean = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   sleepRecord: Sleep= {
@@ -50,13 +52,18 @@ export class SleeptrackerComponent{
     endDateTime: new FormControl('', Validators.required)
   })
 
-  constructor(private sleepService: SleeptrackerService){
+  constructor(private sleepService: SleeptrackerService, private _snackBar : MatSnackBar){
     this.sleepService.getSleepRecords().subscribe((data: Sleep[]) => {
       this.sleepData = data;
       this.dataSource = new MatTableDataSource<Sleep>(this.sleepData);
       this.dataSource.paginator = this.paginator;
   })
 }     
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+
   calculateDuration(startTime: string, endTime: string){
     let startDate = new Date(startTime);
     let endDate = new Date(endTime);
@@ -102,15 +109,29 @@ export class SleeptrackerComponent{
 
   startButton(){
     this.btnStartDate = new Date(Date.now());
+    this.btnStartDate.setHours(this.btnStartDate.getHours() + 2);
+    this.btnTimerIsRunning = true;
+    if (this.btnTimerIsRunning == true)
+      {
+      this.openSnackBar('Sleep timer is running.', 'X');
+      }
   }
 
   stopButton(){
     this.sleepRecord.startTime = this.btnStartDate;
     this.btnStopDate = new Date(Date.now());
+    this.btnStopDate.setHours(this.btnStopDate.getHours() + 2);
     this.sleepRecord.endTime = this.btnStopDate;
-
-    this.sleepService.postSleepRecord(this.sleepRecord)
-      .subscribe();
-    location.reload();
+  
+    this.sleepService.postSleepRecord(this.sleepRecord).subscribe(() => {
+      this.sleepService.getSleepRecords().subscribe((updatedData: Sleep[]) => {
+        this.sleepData = updatedData;
+        this.dataSource = new MatTableDataSource<Sleep>(this.sleepData);
+        this.dataSource.paginator = this.paginator;
+        this.openSnackBar('Added successfully', 'X');
+      });
+    });
+    this.btnTimerIsRunning = false;
   }
+  
 }

@@ -9,5 +9,4 @@ Sleep Client:
 
 run "npm install" in client directory
 run "ng serve"
-wait until backend server starts, and refresh browser (loader will be added later)
 

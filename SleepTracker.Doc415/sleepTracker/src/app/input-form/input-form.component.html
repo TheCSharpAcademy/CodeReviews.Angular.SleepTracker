@@ -1,0 +1,59 @@
+<app-card>
+<section>
+        <h3>Log Your Sleep</h3>
+    </section>
+    <form (ngSubmit)="handleSubmit()"> 
+        <mat-form-field [formGroup]="sleepData">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date" id="date">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <div *ngIf="formDate?.hasError('maxDate')" class="alert alert-danger">
+              Date cannot be in the future.
+            </div>
+          </mat-form-field>
+          <article>
+            <mat-form-field [formGroup]="sleepData">
+                <mat-label>Hours</mat-label>
+                <input matInput  formControlName="hours" type="number">
+                <div *ngIf="formHours!.invalid && (formHours!.dirty || formHours!.touched)"
+                class="alert alert-danger">
+                <div *ngIf="formHours!.hasError('min')">
+                Hours must be at least 0.
+              </div>              
+            </div>
+              </mat-form-field>
+              <mat-form-field [formGroup]="sleepData">
+                <mat-label>Minutes</mat-label>
+                <input matInput   formControlName="minutes" type="number">
+                <div *ngIf="formMinutes!.invalid && (formMinutes!.dirty || formMinutes!.touched)"
+                class="alert alert-danger">
+                <div *ngIf="formMinutes!.hasError('min')">
+                Minutes must be at least 0.
+              </div>
+              <div *ngIf="formMinutes!.hasError('max')">
+                Minutes must be less than 60.
+              </div>
+            </div>
+              </mat-form-field>
+              <mat-form-field [formGroup]="sleepData">
+                <mat-label>Seconds</mat-label >
+                <input matInput   formControlName="seconds" type="number">
+                <div *ngIf="formSeconds!.invalid && (formSeconds!.dirty || formSeconds!.touched)"
+                class="alert alert-danger">
+                <div *ngIf="formSeconds!.hasError('min')">
+                Minutes must be at least 0.
+              </div>
+              <div *ngIf="formSeconds!.hasError('max')">
+                Seconds must be less than 60.
+              </div>
+            </div>
+              </mat-form-field>
+            </article>
+
+        <article>
+       <button mat-stroked-button extended type="submit">Submit</button>  
+        </article>
+       </form>
+      </app-card>
+  

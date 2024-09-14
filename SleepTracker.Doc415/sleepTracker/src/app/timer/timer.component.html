@@ -1,0 +1,21 @@
+<div class="outerContainer">
+   <app-card>
+        <p>
+          {{ hours | number : "2.0" }}:{{ minutes | number : "2.0" }}:{{
+            counter % 60 | number : "2.0"
+          }}
+        </p>
+        <section>
+          <button mat-stroked-button (click)="startTimer()">Start</button>
+          <button mat-stroked-button (click)="stopTimer()">Stop</button>
+          <button mat-stroked-button (click)="wakeUp()">I woke up!</button>
+        </section>
+        @if(isSleeping){
+        <article>
+          <span class="material-symbols-outlined"> bedtime </span>
+          <p class="status">Zzz..</p>
+        </article>
+        }
+      </app-card>
+</div>
+

@@ -1,0 +1,21 @@
+@import "./variables.scss";
+
+* {
+    box-sizing: border-box;
+  }
+html, body { height: 100%; }
+body { margin: 0; 
+    padding:0;
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    background: linear-gradient(
+        to bottom,
+        #1B1725,
+        #263238
+          );
+          ::-webkit-scrollbar {
+            width: 1px;
+          }
+}
+
+
+

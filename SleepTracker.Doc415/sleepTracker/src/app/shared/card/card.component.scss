@@ -1,0 +1,21 @@
+.container{
+    text-align: center;
+    background: linear-gradient(
+        to bottom,
+        #880E4F,
+        #2E0219  );
+    min-height: auto;
+    min-width: 50rem;
+    padding:2rem;
+    border-radius: 12px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+    margin-top:3rem;
+    margin-right:5rem;
+    margin-left:5rem;
+ }
+
+ .outerContainer{
+    min-height: 30rem;
+    min-width: 50rem;
+ }
+ 

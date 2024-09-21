@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChild, viewChild } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -62,6 +62,7 @@ export class InputFormComponent {
     ]),
   });
   constructor(public sleepService: SleepService) {}
+  @ViewChild('sleepForm') sleepForm?:ElementRef<HTMLFormElement>;
 
   handleSubmit() {
     const date = this.sleepData.get('date')?.value;
@@ -91,13 +92,9 @@ export class InputFormComponent {
           duration: 3000
         });},
       });
-    this.sleepData.reset({
-      date: Date(),
-      hours: '0',
-      minutes: '0',
-      seconds: '0',
-    });
-  }
+
+    this.sleepForm?.nativeElement.reset();
+   }
  
 }
 

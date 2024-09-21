@@ -2,7 +2,7 @@
 <section>
         <h3>Log Your Sleep</h3>
     </section>
-    <form (ngSubmit)="handleSubmit()"> 
+    <form (ngSubmit)="handleSubmit()" #sleepForm> 
         <mat-form-field [formGroup]="sleepData">
             <mat-label>Choose a date</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="date" id="date">

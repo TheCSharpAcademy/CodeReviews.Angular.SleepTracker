@@ -85,9 +85,7 @@ export class SleepRecordsComponent {
           this.sleepService.totalRecords.set(logsCount);
         },
         error: (err) => {
-          this._snackBar.open(`Failed!`, 'Dismiss', {
-            duration: 3000,
-          });
+          
         },
       });
   }

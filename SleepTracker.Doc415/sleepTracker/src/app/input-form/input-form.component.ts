@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChild, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, viewChild } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +10,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
 import { SleepService } from '../sleep.service';
 import { formatDate, NgIf } from '@angular/common';
 import { CardComponent } from '../shared/card/card.component';
@@ -62,7 +61,7 @@ export class InputFormComponent {
     ]),
   });
   constructor(public sleepService: SleepService) {}
-  @ViewChild('sleepForm') sleepForm?:ElementRef<HTMLFormElement>;
+  private sleepForm=viewChild.required<ElementRef<HTMLFormElement>>('sleepForm');
 
   handleSubmit() {
     const date = this.sleepData.get('date')?.value;
@@ -92,10 +91,8 @@ export class InputFormComponent {
           duration: 3000
         });},
       });
-
-    this.sleepForm?.nativeElement.reset();
+      this.sleepForm().nativeElement.reset(); 
    }
- 
 }
 
 function maxDateToday(control: AbstractControl): ValidationErrors | null {

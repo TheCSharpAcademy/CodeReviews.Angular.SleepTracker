@@ -1,0 +1,30 @@
+footer {
+  width: 100%;
+}
+
+.footer-container {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  padding: 1rem 5rem;
+}
+
+.footer-icons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.footer-icon {
+  fill: var(--mat-app-text-color);
+  height: 100%;
+  width: 100%;
+  max-height: 1.5rem;
+  max-width: 1.5rem;
+}
+
+.footer-text {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  flex-grow: 1;
+}

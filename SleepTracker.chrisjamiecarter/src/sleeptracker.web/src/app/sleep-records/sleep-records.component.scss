@@ -1,0 +1,28 @@
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.filter-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.table-container {
+  max-width: 60rem;
+  margin: 0 auto;
+}

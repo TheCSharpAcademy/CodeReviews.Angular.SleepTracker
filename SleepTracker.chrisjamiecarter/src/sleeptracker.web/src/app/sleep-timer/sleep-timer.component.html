@@ -1,0 +1,60 @@
+<div class="timer-container">
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Sleep Timer</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p class="timer-counter">{{ getTimerString(counter) }}</p>
+      <div class="timer-buttons">
+        <button
+          mat-fab
+          color="primary"
+          (click)="onResetTimer()"
+          aria-label="restart icon"
+        >
+          <mat-icon>restart_alt</mat-icon>
+        </button>
+
+        <button
+          mat-fab
+          color="primary"
+          (click)="onStartTimer()"
+          aria-label="play_arrow icon"
+          [disabled]="timerRunning"
+        >
+          <mat-icon>play_arrow</mat-icon>
+        </button>
+
+        <button
+          mat-fab
+          color="primary"
+          (click)="onPauseTimer()"
+          aria-label="pause icon"
+          [disabled]="!timerRunning"
+        >
+          <mat-icon>pause</mat-icon>
+        </button>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="buttons-container">
+        <mat-spinner
+          *ngIf="inProgress"
+          [diameter]="40"
+          mode="indeterminate"
+        ></mat-spinner>
+        <button
+          mat-stroked-button
+          mat-dialog-close
+          color="accent"
+          [disabled]="inProgress"
+          (click)="onCancel()"
+        >
+          Cancel
+        </button>
+        <button mat-stroked-button (click)="onCreate()" [disabled]="!isAbleToCreate()">
+          Create
+        </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

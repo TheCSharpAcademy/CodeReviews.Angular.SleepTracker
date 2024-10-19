@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>Edit Sleep Record</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="sleepRecordForm" class="form-container">
+    <mat-form-field appearance="outline" class="mt">
+      <mat-label>Started</mat-label>
+      <input
+        matInput
+        type="datetime-local"
+        formControlName="started"
+        required
+      />
+      <mat-error *ngIf="sleepRecordForm.get('started')?.hasError('required')">
+        Start date is required.
+      </mat-error>
+      <mat-icon matPrefix>bedtime</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Finished</mat-label>
+      <input
+        matInput
+        type="datetime-local"
+        formControlName="finished"
+        required
+      />
+      <mat-error *ngIf="sleepRecordForm.get('finished')?.hasError('required')">
+        Finish date is required.
+      </mat-error>
+      <mat-error
+        *ngIf="sleepRecordForm.get('finished')?.hasError('finishedDateInvalid')"
+      >
+        Finish date must be later than start date.
+      </mat-error>
+      <mat-icon matPrefix>alarm</mat-icon>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="buttons-container">
+  <mat-spinner
+    *ngIf="inProgress"
+    [diameter]="40"
+    mode="indeterminate"
+  ></mat-spinner>
+  <button
+    mat-stroked-button
+    mat-dialog-close
+    color="accent"
+    [disabled]="inProgress"
+    cdkFocusInitial
+  >
+    Cancel
+  </button>
+  <button mat-stroked-button (click)="onUpdate()" [disabled]="inProgress">
+    Update
+  </button>
+</mat-dialog-actions>

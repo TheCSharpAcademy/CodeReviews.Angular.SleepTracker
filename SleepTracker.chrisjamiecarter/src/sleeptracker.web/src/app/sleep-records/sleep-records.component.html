@@ -1,0 +1,84 @@
+<div class="table-container">
+
+  <div class="filter-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Filter from</mat-label>
+      <input matInput [matDatepicker]="fromPicker" (dateChange)="applyFilter()" [(ngModel)]="filterFromDate"/>
+      <mat-datepicker-toggle matIconSuffix [for]="fromPicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromPicker></mat-datepicker>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Filter to</mat-label>
+      <input matInput [matDatepicker]="toPicker" (dateChange)="applyFilter()" [(ngModel)]="filterToDate">
+      <mat-datepicker-toggle matIconSuffix [for]="toPicker"></mat-datepicker-toggle>
+      <mat-datepicker #toPicker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-fab extended color="primary" (click)="onResetFilter()" >Reset</button>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <!-- Started Column -->
+      <ng-container matColumnDef="started">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Started</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.started | date : "yyyy-MM-dd HH:mm" }}
+        </td>
+      </ng-container>
+
+      <!-- Finished Column -->
+      <ng-container matColumnDef="finished">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Finished</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.finished | date : "yyyy-MM-dd HH:mm" }}
+        </td>
+      </ng-container>
+
+      <!-- Duration Column -->
+      <ng-container matColumnDef="duration">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+        <td mat-cell *matCellDef="let row">{{ row.duration }}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>
+          <div class="buttons-container">
+            <button mat-stroked-button (click)="onCreateSleepRecord()">
+              <mat-icon>add</mat-icon>
+              Add
+            </button>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <div class="buttons-container">
+            <button mat-icon-button aria-label="Edit icon" (click)="onUpdateSleepRecord(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button aria-label="Delete icon" (click)="onDeleteSleepRecord(row)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">
+          No data matching the filter "{{ filterFromDate | date:'yyyy-MM-dd' }} - {{ filterToDate | date:'yyyy-MM-dd' }}"
+        </td>
+      </tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page of sleep records"
+    ></mat-paginator>
+  </div>
+
+</div>

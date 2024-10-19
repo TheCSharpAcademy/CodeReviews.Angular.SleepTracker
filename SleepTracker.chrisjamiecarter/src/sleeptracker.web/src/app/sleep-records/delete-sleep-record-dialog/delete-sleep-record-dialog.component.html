@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Delete Sleep Record</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="sleepRecordForm" class="form-container">
+    <mat-form-field appearance="outline" class="mt">
+      <mat-label>Started</mat-label>
+      <input
+        matInput
+        type="datetime-local"
+        formControlName="started"
+        readonly
+      />
+      <mat-icon matPrefix>bedtime</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Finished</mat-label>
+      <input
+        matInput
+        type="datetime-local"
+        formControlName="finished"
+        readonly
+      />
+      <mat-icon matPrefix>alarm</mat-icon>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="buttons-container">
+  <mat-spinner
+    *ngIf="inProgress"
+    [diameter]="40"
+    mode="indeterminate"
+  ></mat-spinner>
+  <button
+    mat-stroked-button
+    mat-dialog-close
+    color="accent"
+    [disabled]="inProgress"
+    cdkFocusInitial
+  >
+    Cancel
+  </button>
+  <button mat-stroked-button color="warn" (click)="onDelete()" [disabled]="inProgress">
+    Delete
+  </button>
+</mat-dialog-actions>

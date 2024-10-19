@@ -1,0 +1,27 @@
+.buttons-container {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.mat-mdc-card-header {
+    justify-content: center;
+}
+
+.timer-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.timer-container {
+    max-width: 60rem;
+    margin: 0 auto;  
+}
+
+.timer-counter {
+    margin: 2rem;
+    text-align: center;
+    font-size: xx-large;
+}

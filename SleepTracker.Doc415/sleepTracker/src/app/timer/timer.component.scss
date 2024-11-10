@@ -1,0 +1,33 @@
+@import "../../variables";
+@import url('https://fonts.cdnfonts.com/css/digital-numbers');
+.outerContainer{
+    min-height: 30rem;
+    min-width: 40rem;
+ }
+ 
+
+p{
+    margin-top: 5rem;
+    font-size: 6rem;
+    color: #EDE6F2;
+    font-family: 'Digital Numbers', sans-serif
+}
+
+section{
+    margin-top:7rem
+}
+
+article{
+    color: #EDE6F2;
+    margin-top:1rem
+}
+
+button{
+    margin:5px;
+}
+
+p.status {
+    font-family: Roboto, "Helvetica Neue", sans-serif !important; 
+    font-size:0.5rem !important;
+    margin-top:0 !important;
+}

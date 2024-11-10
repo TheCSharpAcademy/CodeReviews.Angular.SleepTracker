@@ -1,8 +1,0 @@
-<div *ngIf="isLoggedIn else LogIn">
-    <span>{{UserInfo?.email}}</span>
-    <app-log-out></app-log-out>
-</div>
-
- <ng-template #LogIn>
-    <button mat-button routerLink="signin">Log In</button>
- </ng-template>

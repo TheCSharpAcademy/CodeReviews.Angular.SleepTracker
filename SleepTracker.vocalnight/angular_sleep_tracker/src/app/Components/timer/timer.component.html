@@ -1,9 +1,0 @@
-<div class="timerClass"> 
-    <div class="timerButtons">
-        <button mat-raised-button color="primary" (click)="basicTimer.start()">Start Timer</button>
-        <button mat-raised-button color="warn" (click)="onTimerStop(basicTimer)">Stop and Save</button>
-    </div>
-    <div class="timerCount">
-        <h3><cd-timer #basicTimer format="hms" [autoStart]="false"></cd-timer></h3>
-    </div>
-</div>
